@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation"
 
 const navLinks = [
   { label: "首頁", href: "/" },
-  { label: "療程介紹", href: "/#services" },
+  //{ label: "療程介紹", href: "/#services" },
   { label: "最新文章", href: "/blog" },
-  { label: "聯絡我們", href: "/#contact" },
+  //{ label: "聯絡我們", href: "/#contact" },
 ]
 
 export function Navbar() {
