@@ -66,6 +66,7 @@ export function Navbar() {
               <span className="block text-lg font-bold tracking-tight text-foreground md:text-xl">
                 美麗好診所
               </span>
+
               <span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
                 AESTHETIC CLINIC
               </span>
@@ -73,14 +74,23 @@ export function Navbar() {
           </Link>
 
           {/* 電腦版選單 */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-10 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="group relative text-sm font-medium tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                className="
+                  group relative
+                  text-[15px] md:text-base
+                  font-semibold
+                  tracking-wide
+                  text-muted-foreground
+                  transition-colors
+                  hover:text-foreground
+                "
               >
                 {link.label}
+
                 <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100" />
               </Link>
             ))}
@@ -89,7 +99,18 @@ export function Navbar() {
               href="https://line.me/R/ti/p/@你的LINEID"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(217,143,143,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(217,143,143,0.38)]"
+              className="
+                rounded-full
+                bg-primary
+                px-6 py-3
+                text-sm md:text-base
+                font-semibold
+                text-primary-foreground
+                shadow-[0_10px_30px_rgba(217,143,143,0.28)]
+                transition-all
+                hover:-translate-y-0.5
+                hover:shadow-[0_14px_36px_rgba(217,143,143,0.38)]
+              "
             >
               LINE 諮詢
             </a>
@@ -126,6 +147,7 @@ export function Navbar() {
             <p className="text-sm tracking-[0.24em] text-muted-foreground">
               AESTHETIC CLINIC
             </p>
+
             <p className="mt-2 text-2xl font-bold text-foreground">
               品牌醫美診所
             </p>
@@ -143,6 +165,7 @@ export function Navbar() {
                 className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
               >
                 {link.label}
+
                 <span className="text-primary">→</span>
               </Link>
             ))}
@@ -152,7 +175,13 @@ export function Navbar() {
             href="https://line.me/R/ti/p/@你的LINEID"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(217,143,143,0.32)]"
+            className="
+              mt-8 flex h-14 items-center justify-center
+              rounded-full bg-primary
+              text-base font-semibold
+              text-primary-foreground
+              shadow-[0_14px_36px_rgba(217,143,143,0.32)]
+            "
           >
             加入 LINE 預約諮詢
           </a>
