@@ -8,7 +8,7 @@ export default defineConfig({
   name: 'default',
   title: 'line88-blog',
 
-  projectId: 't0di9pwy',
+  projectId: 'no0ub4vm',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool(), media()],
