@@ -1,131 +1,145 @@
-import React from 'react';
-import Link from 'next/link';
+"use client"
+
+import Link from "next/link"
+import {
+  Sparkles,
+  Syringe,
+  ScanLine,
+  ShieldCheck,
+  HeartHandshake,
+  Smile,
+} from "lucide-react"
 
 interface ServiceItem {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  link?: string;
+  title: string
+  description: string
+  icon: React.ReactNode
+  link?: string
 }
 
 const services: ServiceItem[] = [
   {
-    title: "Line 帳號投票服務",
-    description: "Line 帳號大量投票、買票、灌票",
-    link: "/content/line-vote-services",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 12 2 2 4-4"/><path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7Z"/><path d="M22 19H2"/></svg>
-    ),
+    title: "肌膚管理",
+    description:
+      "依照個人膚況提供保濕修護、粉刺調理與日常保養規劃。",
+    icon: <Sparkles size={24} />,
   },
   {
-    title: "Facebook 帳號投票服務",
-    description: "FB 帳號大量投票、買票、灌票",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
-    ),
+    title: "微整形注射",
+    description:
+      "提供玻尿酸、肉毒桿菌等微整療程，打造自然精緻輪廓。",
+    icon: <Syringe size={24} />,
   },
   {
-    title: "Google 帳號投票服務",
-    description: "Google 帳號大量投票、買票、灌票",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-    ),
+    title: "雷射光療",
+    description:
+      "針對毛孔、膚色不均、痘疤與細紋進行客製化改善。",
+    icon: <ScanLine size={24} />,
   },
   {
-    title: "Facebook 臉書灌水服務",
-    description: "FB 大量按讚、粉專追蹤、社團人數、留言推文",
-    link: "/content/facebook-services",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    ),
+    title: "術前專業評估",
+    description:
+      "由專業團隊進行完整膚況分析與個人化療程建議。",
+    icon: <ShieldCheck size={24} />,
   },
   {
-    title: "Instagram IG 灌水服務",
-    description: "IG 大量按愛心、追蹤、留言推文",
-    link: "/content/instagram-services",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-    ),
+    title: "術後修護照護",
+    description:
+      "提供完整術後保養與修護建議，降低不適與恢復期壓力。",
+    icon: <HeartHandshake size={24} />,
   },
   {
-    title: "Line@ 官方帳號灌水服務",
-    description: "Line@ 官方帳號追蹤人數灌水",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z"/><path d="M12 12v.01"/><path d="M12 16v.01"/><path d="M12 8v.01"/></svg>
-    ),
-  },
-  {
-    title: "Threads@ 灌水服務",
-    description: "Threads 大量按愛心、追蹤、留言推文",
-    link: "/content/threads-services",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19.25 17C18.84 18.61 17.33 19.5 15.5 19.5C12.5 19.5 10 17.5 10 14.5C10 11.5 12.5 9.5 15.5 9.5C17.33 9.5 18.84 10.39 19.25 12"/><path d="M15.5 13.5C14.5 13.5 13.5 14 13.5 15C13.5 16 14.5 16.5 15.5 16.5C16.5 16.5 17.5 16 17.5 15C17.5 14 16.5 13.5 15.5 13.5Z"/><path d="M7 10C7 6.5 10 3.5 14.5 3.5C19 3.5 22 6.5 22 10V14C22 18.5 18.5 22 14 22C10.5 22 7.5 19.5 7.5 15.5"/></svg>
-    ),
-  },
-  {
-    title: "網路行銷、關鍵字",
-    description: "AEO、SEO AI 關鍵字優化",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-    ),
-  },
-  {
-    title: "Line@官方帳號AI客服串接建置",
-    description: "Line@官方帳號串接 AI (Gemini、ChatGPT)",
-    link: "/content/line-ai-services",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
-    ),
-  },
-  {
-    title: "社群口碑五星評論",
-    description: "Facebook 店家五星評論灌水",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    ),
+    title: "自然美感規劃",
+    description:
+      "重視五官比例與自然協調，打造更適合自己的狀態。",
+    icon: <Smile size={24} />,
   },
 ]
 
 export function ServicesSection() {
   return (
-    <section id="services" className="px-6 py-12 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl font-bold text-center text-foreground mb-10">
-          <span className="text-primary">|</span> 服務項目
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section
+      id="services"
+      className="relative overflow-hidden px-6 py-24"
+    >
+      {/* 背景光暈 */}
+      <div className="absolute left-0 top-20 h-[240px] w-[240px] rounded-full bg-primary/10 blur-[90px]" />
+      <div className="absolute right-0 bottom-0 h-[280px] w-[280px] rounded-full bg-accent/10 blur-[100px]" />
+
+      <div className="relative mx-auto max-w-6xl">
+        {/* 標題 */}
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <p className="mb-3 text-sm font-medium tracking-[0.2em] text-primary">
+            OUR SERVICES
+          </p>
+
+          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+            專業醫美療程與
+            <span className="block text-primary">
+              客製化肌膚管理
+            </span>
+          </h2>
+
+          <p className="mt-5 text-base leading-8 text-muted-foreground">
+            從日常肌膚保養到醫學美容療程，
+            依照個人需求與膚況，
+            規劃更自然、安心且適合自己的改善方式。
+          </p>
+        </div>
+
+        {/* 卡片 */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {
-            // 封裝卡片的內容
             const CardContent = (
-              <div className={`flex items-start gap-4 rounded-2xl border border-border bg-card p-6 transition-all duration-300 h-full ${service.link ? 'hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 cursor-pointer' : ''}`}>
-                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
-                  {service.icon}
-                </div>
-                <div className="flex flex-col justify-center">
-                  <h3 className="text-base font-bold text-card-foreground leading-snug">
+              <div className="group relative h-full overflow-hidden rounded-[2rem] border border-border/70 bg-white/80 p-7 shadow-[0_10px_40px_rgba(120,80,70,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(217,143,143,0.14)]">
+                
+                {/* hover 光暈 */}
+                <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-primary/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div className="relative z-10">
+                  {/* icon */}
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    {service.icon}
+                  </div>
+
+                  {/* title */}
+                  <h3 className="text-xl font-bold text-foreground">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+
+                  {/* desc */}
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">
                     {service.description}
                   </p>
+
+                  {/* arrow */}
+                  <div className="mt-6 flex items-center text-sm font-medium text-primary">
+                    了解更多
+                    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </div>
                 </div>
               </div>
-            );
+            )
 
-            // 如果有 link，就用 Link 組件包裹；否則直接輸出 div
             if (service.link) {
               return (
-                <Link href={service.link} key={service.title} className="block group">
+                <Link
+                  key={service.title}
+                  href={service.link}
+                  className="block"
+                >
                   {CardContent}
                 </Link>
-              );
+              )
             }
 
             return (
               <div key={service.title}>
                 {CardContent}
               </div>
-            );
+            )
           })}
         </div>
       </div>

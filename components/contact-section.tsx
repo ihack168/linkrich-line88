@@ -1,61 +1,150 @@
+"use client"
+
+import {
+  MessageCircle,
+  Mail,
+  Instagram,
+  MapPin,
+} from "lucide-react"
+
 const contacts = [
   {
-    label: "Line",
-    description: "加入 Line 與我聯絡",
-    href: "https://line.me/R/ti/p/~line88.tw",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    ),
+    label: "LINE 線上諮詢",
+    description: "加入 LINE 立即預約與療程諮詢",
+    href: "https://line.me/R/ti/p/@你的LINEID",
+    icon: <MessageCircle size={28} />,
   },
   {
-    label: "Email",
-    description: "ihack168@gmail.com",
-    href: "mailto:ihack168@gmail.com",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-    ),
+    label: "Email 聯絡",
+    description: "clinic@example.com",
+    href: "mailto:clinic@example.com",
+    icon: <Mail size={28} />,
   },
   {
-    label: "Facebook",
-    description: "透過 Facebook 粉絲專頁聯絡",
-    href: "https://www.facebook.com/lockheadhex",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    ),
+    label: "Instagram",
+    description: "追蹤最新療程與案例分享",
+    href: "https://instagram.com/",
+    icon: <Instagram size={28} />,
+  },
+  {
+    label: "診所位置",
+    description: "台北市｜預約制諮詢服務",
+    href: "https://maps.google.com",
+    icon: <MapPin size={28} />,
   },
 ]
 
 export function ContactSection() {
   return (
-    <section id="contact" className="px-6 py-20"> {/* 增加上下間距讓區塊更明顯 */}
-      <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12 italic">
-        <span className="text-[#ff8800]">|</span> 聯絡我們
-      </h2>
-      
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 max-w-6xl mx-auto">
-        {contacts.map((contact) => (
+    <section
+      id="contact"
+      className="relative overflow-hidden px-6 py-24"
+    >
+      {/* 背景光暈 */}
+      <div className="absolute left-1/2 top-0 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-primary/10 blur-[100px]" />
+
+      <div className="relative mx-auto max-w-6xl">
+        
+        {/* 標題 */}
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <p className="mb-3 text-sm font-medium tracking-[0.2em] text-primary">
+            CONTACT US
+          </p>
+
+          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+            預約專業諮詢
+          </h2>
+
+          <p className="mt-5 text-base leading-8 text-muted-foreground">
+            歡迎透過 LINE、Instagram 或 Email 與我們聯繫，
+            由專人提供療程建議與預約安排。
+          </p>
+        </div>
+
+        {/* 聯絡卡片 */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {contacts.map((contact) => (
+            <a
+              key={contact.label}
+              href={contact.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                group relative overflow-hidden rounded-[2rem]
+                border border-border/70
+                bg-white/80
+                p-7
+                shadow-[0_10px_40px_rgba(120,80,70,0.08)]
+                backdrop-blur
+                transition-all duration-500
+                hover:-translate-y-1.5
+                hover:border-primary/30
+                hover:shadow-[0_20px_60px_rgba(217,143,143,0.14)]
+              "
+            >
+              {/* hover 光暈 */}
+              <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-primary/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+              <div className="relative z-10 flex items-start gap-5">
+                
+                {/* icon */}
+                <div
+                  className="
+                    flex h-16 w-16 flex-shrink-0 items-center justify-center
+                    rounded-2xl
+                    bg-primary/10
+                    text-primary
+                    transition-transform duration-500
+                    group-hover:scale-110
+                  "
+                >
+                  {contact.icon}
+                </div>
+
+                {/* text */}
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-foreground">
+                    {contact.label}
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                    {contact.description}
+                  </p>
+
+                  <div className="mt-5 flex items-center text-sm font-medium text-primary">
+                    立即聯絡
+                    <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* 底部 CTA */}
+        <div className="mt-14 text-center">
           <a
-            key={contact.label}
-            href={contact.href}
+            href="https://line.me/R/ti/p/@你的LINEID"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-5 w-full lg:w-auto rounded-2xl border border-white/10 bg-white/5 px-8 py-5 hover:border-[#ff8800]/50 hover:bg-[#ff8800]/5 transition-all duration-300 group"
+            className="
+              inline-flex items-center justify-center
+              rounded-full
+              bg-primary
+              px-8 py-4
+              text-sm font-semibold
+              text-primary-foreground
+              shadow-[0_14px_36px_rgba(217,143,143,0.32)]
+              transition-all
+              hover:-translate-y-0.5
+              hover:shadow-[0_18px_44px_rgba(217,143,143,0.42)]
+            "
           >
-            {/* 圖示外圈放大 */}
-            <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-xl bg-[#ff8800]/10 text-[#ff8800] group-hover:scale-110 transition-transform">
-              {contact.icon}
-            </div>
-            
-            <div>
-              {/* 主標籤字體加大 */}
-              <p className="text-xl font-black text-white mb-1">{contact.label}</p>
-              {/* 描述文字字體加大 */}
-              <p className="text-sm text-gray-400 font-medium group-hover:text-gray-200 transition-colors">
-                {contact.description}
-              </p>
-            </div>
+            加入 LINE 預約諮詢
           </a>
-        ))}
+        </div>
       </div>
     </section>
   )

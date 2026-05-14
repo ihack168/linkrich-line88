@@ -1,13 +1,13 @@
 "use client"
+
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 
 const navLinks = [
   { label: "首頁", href: "/" },
-  { label: "服務介紹", href: "/#services" },
+  { label: "療程介紹", href: "/#services" },
   { label: "最新文章", href: "/blog" },
-  //{ label: "Blog", href: "https://blog.line88.tw/" },
   { label: "聯絡我們", href: "/#contact" },
 ]
 
@@ -19,12 +19,15 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll)
+    handleScroll()
+
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   useEffect(() => {
     setMobileOpen(false)
-    if (typeof document !== 'undefined') {
+
+    if (typeof document !== "undefined") {
       document.body.style.overflow = "unset"
     }
   }, [pathname])
@@ -32,74 +35,103 @@ export function Navbar() {
   const toggleMenu = () => {
     const nextState = !mobileOpen
     setMobileOpen(nextState)
-    if (typeof document !== 'undefined') {
+
+    if (typeof document !== "undefined") {
       document.body.style.overflow = nextState ? "hidden" : "unset"
     }
   }
 
   return (
     <>
-      {/* 浮島導覽列 */}
-      <nav className="fixed top-0 left-0 right-0 z-[50] flex justify-center pointer-events-none">
-        <div 
+      <nav className="fixed left-0 right-0 top-0 z-[50] flex justify-center pointer-events-none">
+        <div
           className={`
-            flex items-center justify-between px-8 transition-all duration-500 pointer-events-auto
-            ${scrolled 
-              ? "w-[92%] md:w-[85%] max-w-6xl h-16 mt-4 bg-black/80 border border-white/20 rounded-full shadow-2xl backdrop-blur-md" 
-              : "w-full h-20 bg-black/50 backdrop-blur-sm border-b border-white/5"
+            pointer-events-auto flex items-center justify-between transition-all duration-500
+            ${
+              scrolled
+                ? "mt-4 h-16 w-[92%] max-w-6xl rounded-full border border-border/70 bg-white/85 px-5 shadow-[0_18px_50px_rgba(120,80,70,0.12)] backdrop-blur-xl md:w-[86%] md:px-7"
+                : "h-20 w-full border-b border-border/60 bg-white/75 px-5 backdrop-blur-xl md:px-10"
             }
           `}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 relative z-[60]">
-            <img src="/images/logo.png" alt="Logo" className="w-10 h-10 rounded-full border border-[#ff8800]/30 shadow-[0_0_10px_rgba(255,136,0,0.3)]" />
-            <span className="text-xl md:text-2xl font-black italic tracking-tighter text-[#ff8800] drop-shadow-[0_0_8px_rgba(255,136,0,0.5)]">
-              洛克希德黑克斯
-            </span>
+          <Link href="/" className="relative z-[60] flex items-center gap-3">
+            <img
+              src="/images/logo.png"
+              alt="品牌醫美診所 Logo"
+              className="h-10 w-10 rounded-full border border-primary/20 bg-white object-cover shadow-sm"
+            />
+
+            <div className="leading-tight">
+              <span className="block text-lg font-bold tracking-tight text-foreground md:text-xl">
+                品牌醫美診所
+              </span>
+              <span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
+                AESTHETIC CLINIC
+              </span>
+            </div>
           </Link>
 
           {/* 電腦版選單 */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href} 
-                className="text-lg font-black tracking-widest text-gray-200 hover:text-[#ff8800] transition-colors relative group"
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group relative text-sm font-medium tracking-wide text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#ff8800] transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100" />
               </Link>
             ))}
+
+            <a
+              href="https://line.me/R/ti/p/@你的LINEID"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(217,143,143,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(217,143,143,0.38)]"
+            >
+              LINE 諮詢
+            </a>
           </div>
 
-          {/* 漢堡按鈕 (開啟用) */}
-          <button 
-            onClick={toggleMenu} 
-            className="md:hidden w-12 h-12 flex flex-col items-center justify-center gap-1.5 z-[60]"
+          {/* 手機漢堡按鈕 */}
+          <button
+            onClick={toggleMenu}
+            aria-label="開啟選單"
+            className="relative z-[60] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-white shadow-sm md:hidden"
           >
-            <span className="h-0.5 w-7 bg-[#ff8800] shadow-[0_0_5px_rgba(255,136,0,0.5)]" />
-            <span className="h-0.5 w-7 bg-[#ff8800] shadow-[0_0_5px_rgba(255,136,0,0.5)]" />
-            <span className="h-0.5 w-7 bg-[#ff8800] shadow-[0_0_5px_rgba(255,136,0,0.5)]" />
+            <span className="h-0.5 w-5 rounded-full bg-foreground" />
+            <span className="h-0.5 w-5 rounded-full bg-foreground" />
+            <span className="h-0.5 w-5 rounded-full bg-foreground" />
           </button>
         </div>
       </nav>
 
       {/* 手機全螢幕選單 */}
       {mobileOpen && (
-        <div className="fixed inset-0 bg-[#0a0a0a] z-[100] md:hidden flex flex-col pt-24 px-12 animate-in fade-in zoom-in-95 duration-300">
-          
-          {/* 右上角關閉按鈕 (X) */}
-          <button 
+        <div className="fixed inset-0 z-[100] flex flex-col bg-background px-7 pt-24 md:hidden animate-in fade-in duration-300">
+          <button
             onClick={toggleMenu}
-            className="absolute top-7 right-8 w-12 h-12 flex items-center justify-center z-[110]"
+            aria-label="關閉選單"
+            className="absolute right-6 top-6 z-[110] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white shadow-sm"
           >
-            <div className="relative w-7 h-7">
-              <span className="absolute top-1/2 left-0 w-full h-0.5 bg-[#ff8800] rotate-45 shadow-[0_0_5px_rgba(255,136,0,0.5)]"></span>
-              <span className="absolute top-1/2 left-0 w-full h-0.5 bg-[#ff8800] -rotate-45 shadow-[0_0_5px_rgba(255,136,0,0.5)]"></span>
+            <div className="relative h-6 w-6">
+              <span className="absolute left-0 top-1/2 h-0.5 w-full rotate-45 rounded-full bg-foreground" />
+              <span className="absolute left-0 top-1/2 h-0.5 w-full -rotate-45 rounded-full bg-foreground" />
             </div>
           </button>
 
-          <div className="flex flex-col w-full gap-2">
+          <div className="mb-8">
+            <p className="text-sm tracking-[0.24em] text-muted-foreground">
+              AESTHETIC CLINIC
+            </p>
+            <p className="mt-2 text-2xl font-bold text-foreground">
+              品牌醫美診所
+            </p>
+          </div>
+
+          <div className="flex w-full flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -108,16 +140,27 @@ export function Navbar() {
                   setMobileOpen(false)
                   document.body.style.overflow = "unset"
                 }}
-                className="py-5 text-2xl font-black italic tracking-wider text-gray-100 border-b border-white/5 active:text-[#ff8800] flex justify-between items-center group"
+                className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
               >
                 {link.label}
-                <span className="text-[#ff8800] opacity-0 group-active:opacity-100">→</span>
+                <span className="text-primary">→</span>
               </Link>
             ))}
           </div>
-          
-          {/* 點擊選單下方空白處也能關閉 */}
-          <div className="flex-grow" onClick={toggleMenu}></div>
+
+          <a
+            href="https://line.me/R/ti/p/@你的LINEID"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(217,143,143,0.32)]"
+          >
+            加入 LINE 預約諮詢
+          </a>
+
+          <div className="mt-auto pb-8 text-sm leading-7 text-muted-foreground">
+            <p>專業醫美療程｜肌膚管理｜微整形諮詢</p>
+            <p>自然、細緻、安心的美麗體驗</p>
+          </div>
         </div>
       )}
     </>

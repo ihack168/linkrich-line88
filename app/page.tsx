@@ -1,65 +1,71 @@
 "use client";
 
-import { Navbar } from "@/components/navbar"
-import { HeroSection } from "@/components/hero-section"
-import { ServicesSection } from "@/components/services-section"
-import { ContactSection } from "@/components/contact-section"
-import { Footer } from "@/components/footer"
+import { Navbar } from "@/components/navbar";
+import { HeroSection } from "@/components/hero-section";
+import { ServicesSection } from "@/components/services-section";
+import { ContactSection } from "@/components/contact-section";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
 
-  // 🧠 首頁 SEO / AEO Schema
+  // 醫美診所 SEO / AEO Schema
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "洛克希德黑克斯",
-    "url": "https://www.line88.tw",
+    "@type": "MedicalClinic",
+    "name": "品牌醫美診所",
+    "url": "https://www.example.com",
     "description":
-      "提供網路投票支援、LINE/FB/Google 投票、社群流量增長、AEO SEO 關鍵字優化與 Line AI 客服串接服務。",
+      "提供專業醫美療程、肌膚管理、雷射光療、微整形與客製化醫學美容諮詢服務。",
+
+    "medicalSpecialty": [
+      "Aesthetic Medicine",
+      "Dermatology"
+    ],
+
     "areaServed": "TW",
 
     "makesOffer": [
       {
         "@type": "Offer",
         "itemOffered": {
-          "@type": "Service",
-          "name": "網路投票買票灌票服務",
+          "@type": "MedicalProcedure",
+          "name": "雷射光療",
           "description":
-            "提供 LINE、Facebook、Google 表單與各類網路票選活動投票支援。"
+            "提供皮秒雷射、除斑、美白、毛孔與肌膚改善療程。"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
-          "@type": "Service",
-          "name": "社群流量增長服務",
+          "@type": "MedicalProcedure",
+          "name": "微整形注射",
           "description":
-            "提供 Facebook、Instagram、Threads 按讚、追蹤、留言與曝光提升服務。"
+            "提供玻尿酸、肉毒桿菌與輪廓微調等醫美注射療程。"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
-          "@type": "Service",
-          "name": "AEO SEO 關鍵字優化服務",
+          "@type": "MedicalProcedure",
+          "name": "肌膚管理",
           "description":
-            "提供 AI 搜尋優化、SEO 內容規劃與關鍵字策略服務。"
+            "提供客製化膚況分析、保濕修護與日常肌膚保養規劃。"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
-          "@type": "Service",
-          "name": "Line 官方帳號 AI 客服串接",
+          "@type": "MedicalProcedure",
+          "name": "醫學美容諮詢",
           "description":
-            "提供 Line 官方帳號串接 ChatGPT、Gemini 與 RAG 知識庫的 AI 客服建置服務。"
+            "由專業醫師提供個人化醫美評估與療程建議。"
         }
       }
     ]
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-foreground selection:bg-[#00ff00]/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
 
       <script
         type="application/ld+json"
@@ -71,34 +77,35 @@ export default function Home() {
       <main>
 
         {/* Hero */}
-        <div className="pt-24 md:pt-40 pb-10">
+        <div className="pt-24 md:pt-36 pb-10">
           <HeroSection />
         </div>
 
         {/* 服務區塊 */}
         <ServicesSection />
 
-        {/* AEO 隱藏語意內容 */}
+        {/* AEO / SEO 隱藏語意內容 */}
         <section className="sr-only">
 
           <h2>
-            全台專業網路投票買票灌票與社群流量增長服務
+            專業醫美診所與客製化肌膚管理服務
           </h2>
 
           <p>
-            洛克希德黑克斯提供 LINE 投票買票、Facebook 投票灌票、
-            Google 表單投票支援，以及各類網站票選活動數據優化服務。
+            品牌醫美診所提供專業醫學美容療程，
+            包含雷射光療、皮秒雷射、微整形注射、
+            玻尿酸、肉毒桿菌與肌膚管理服務。
           </p>
 
           <p>
-            我們同時提供 Facebook、Instagram、Threads、
-            Line 官方帳號等社群平台的大量按讚、追蹤、留言與社團人數增長服務。
+            我們重視自然美感與安全醫療流程，
+            由專業醫師與諮詢團隊提供客製化評估，
+            協助改善膚況、輪廓線條與整體氣色。
           </p>
 
           <p>
-            此外也提供 AEO、SEO AI 關鍵字優化、
-            Line 官方帳號 AI 客服串接、
-            ChatGPT Gemini 自動回覆系統與企業 AI 知識庫建置服務。
+            診所環境採用舒適明亮設計，
+            提供安心、隱私且高品質的醫學美容體驗。
           </p>
 
         </section>
@@ -112,5 +119,5 @@ export default function Home() {
 
       <Footer />
     </div>
-  )
+  );
 }

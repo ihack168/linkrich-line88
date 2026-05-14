@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: '洛克希德黑克斯｜網路投票、社群流量、AEO SEO 與 Line AI 客服服務',
+  title: '品牌醫美診所｜專業醫美療程、肌膚管理與微整形諮詢',
 
   description:
-    '洛克希德黑克斯提供網路投票支援、Facebook/Instagram/Threads 社群流量增長、AEO SEO 關鍵字優化與 Line 官方帳號 AI 客服串接服務。',
+    '品牌醫美診所提供專業醫美療程、肌膚管理、雷射光療、微整形注射與客製化保養建議，打造自然、細緻、安心的美麗體驗。',
 
-  metadataBase: new URL('https://www.line88.tw'),
+  metadataBase: new URL('https://www.example.com'),
 
   alternates: {
-    canonical: 'https://www.line88.tw',
+    canonical: 'https://www.example.com',
   },
 
   icons: {
@@ -43,20 +43,20 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: '洛克希德黑克斯｜網路投票、社群流量與 AI 自動化服務',
+    title: '品牌醫美診所｜專業醫美療程與肌膚管理',
     description:
-      '提供 LINE/FB/Google 投票支援、社群流量增長、AEO SEO 優化與 Line AI 客服建置服務。',
-    url: 'https://www.line88.tw',
-    siteName: '洛克希德黑克斯',
+      '提供肌膚管理、雷射光療、微整形注射與客製化醫美諮詢，陪你打造自然細緻的理想狀態。',
+    url: 'https://www.example.com',
+    siteName: '品牌醫美診所',
     locale: 'zh_TW',
     type: 'website',
   },
 
   twitter: {
-    card: 'summary',
-    title: '洛克希德黑克斯｜網路投票、社群流量與 AI 自動化服務',
+    card: 'summary_large_image',
+    title: '品牌醫美診所｜專業醫美療程與肌膚管理',
     description:
-      '投票支援、社群流量增長、AEO SEO 與 Line AI 客服建置服務。',
+      '肌膚管理、雷射光療、微整形注射與客製化醫美諮詢服務。',
   },
 }
 
@@ -67,9 +67,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-Hant" className={`${notoSansTC.variable} ${geistMono.variable}`}>
-      <body className="font-sans antialiased bg-[#0a0a0a] text-white">
+      <body className="font-sans antialiased bg-background text-foreground">
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-2X29DPN458"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
           strategy="afterInteractive"
         />
 
@@ -78,7 +78,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-2X29DPN458', {
+            gtag('config', 'G-XXXXXXXXXX', {
               page_path: window.location.pathname,
             });
           `}
