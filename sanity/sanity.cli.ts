@@ -2,15 +2,11 @@ import {defineCliConfig} from 'sanity/cli'
 
 export default defineCliConfig({
   api: {
-    projectId: 'no0ub4vm',
+    projectId: 'no0ub4vm', // 這是你的新專案 ID
     dataset: 'production'
   },
   deployment: {
-    appId: 'xr4vdy1uremwlm9aqt4nmhvf',
-    /**
-     * Enable auto-updates for studios.
-     * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
-     */
+    // 刪除原本的 appId 行位，讓 Sanity 自動處理新部署
     autoUpdates: true,
   }
 })
