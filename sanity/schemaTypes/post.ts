@@ -17,13 +17,19 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        // 支援中文生成：保留中文字元、英數字、橫槓，並過濾掉標點符號
-        slugify: (input) =>
-          input
+        // 關鍵修正：讓後台手動生成格式 = 自動發文腳本格式
+        slugify: (input) => {
+          const cleanTitle = input
             .toLowerCase()
-            .replace(/\s+/g, '-') // 空格取代為橫槓
-            .replace(/[^\u4e00-\u9fa5a-z0-9-]/g, '') // 刪除特殊符號（如：？、，！）
-            .slice(0, 96),
+            .replace(/\s+/g, '-') // 空格換橫槓
+            .replace(/[^\u4e00-\u9fa5a-z0-9-]/g, '') // 刪除特殊符號
+            .substring(0, 15) // 與 auto-post.mjs 同步取前 15 字，避免切斷中文字元編碼
+
+          const uniqueId = Math.floor(Date.now() / 1000).toString().slice(-6)
+          
+          // 強制進行 URL 編碼，確保前台能用舊有的邏輯抓到文章
+          return encodeURIComponent(cleanTitle) + `-${uniqueId}`
+        },
       },
       validation: (Rule) => Rule.required().error('Slug 是必填項目，否則前台無法點擊'),
     }),
