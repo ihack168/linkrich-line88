@@ -58,7 +58,7 @@ export function Navbar() {
           <Link href="/" className="relative z-[60] flex items-center gap-3">
             <img
               src="/images/logo.png"
-              alt="品牌醫美診所 Logo"
+              alt="美麗好診所 Logo"
               className="h-10 w-10 rounded-full border border-primary/20 bg-white object-cover shadow-sm"
             />
 
@@ -149,7 +149,7 @@ export function Navbar() {
             </p>
 
             <p className="mt-2 text-2xl font-bold text-foreground">
-              品牌醫美診所
+              美麗好診所
             </p>
           </div>
 

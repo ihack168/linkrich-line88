@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: '品牌醫美診所｜專業醫美療程、肌膚管理與微整形諮詢',
+  title: '美麗好診所｜專業醫美療程、肌膚管理與微整形諮詢',
 
   description:
-    '品牌醫美診所提供專業醫美療程、肌膚管理、雷射光療、微整形注射與客製化保養建議，打造自然、細緻、安心的美麗體驗。',
+    '美麗好診所提供專業醫美療程、肌膚管理、雷射光療、微整形注射與客製化保養建議，打造自然、細緻、安心的美麗體驗。',
 
   metadataBase: new URL('https://www.example.com'),
 
@@ -43,18 +43,18 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: '品牌醫美診所｜專業醫美療程與肌膚管理',
+    title: '美麗好診所｜專業醫美療程與肌膚管理',
     description:
       '提供肌膚管理、雷射光療、微整形注射與客製化醫美諮詢，陪你打造自然細緻的理想狀態。',
     url: 'https://www.example.com',
-    siteName: '品牌醫美診所',
+    siteName: '美麗好診所',
     locale: 'zh_TW',
     type: 'website',
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: '品牌醫美診所｜專業醫美療程與肌膚管理',
+    title: '美麗好診所｜專業醫美療程與肌膚管理',
     description:
       '肌膚管理、雷射光療、微整形注射與客製化醫美諮詢服務。',
   },

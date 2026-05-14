@@ -12,7 +12,7 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
-    "name": "品牌醫美診所",
+    "name": "美麗好診所",
     "url": "https://www.example.com",
     "description":
       "提供專業醫美療程、肌膚管理、雷射光療、微整形與客製化醫學美容諮詢服務。",
@@ -92,7 +92,7 @@ export default function Home() {
           </h2>
 
           <p>
-            品牌醫美診所提供專業醫學美容療程，
+            美麗好診所提供專業醫學美容療程，
             包含雷射光療、皮秒雷射、微整形注射、
             玻尿酸、肉毒桿菌與肌膚管理服務。
           </p>

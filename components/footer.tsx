@@ -10,7 +10,7 @@ export function Footer() {
         {/* 左側品牌資訊 */}
         <div className="text-center md:text-left">
           <h3 className="text-xl font-bold tracking-tight text-foreground">
-            品牌醫美診所
+            美麗好診所
           </h3>
 
           <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
@@ -70,7 +70,7 @@ export function Footer() {
       {/* 底部版權 */}
       <div className="relative mx-auto mt-10 max-w-6xl border-t border-border/60 pt-6 text-center">
         <p className="text-xs tracking-wide text-muted-foreground">
-          © 2026 品牌醫美診所 Aesthetic Clinic. All rights reserved.
+          © 2026 美麗好診所 Aesthetic Clinic. All rights reserved.
         </p>
       </div>
     </footer>
