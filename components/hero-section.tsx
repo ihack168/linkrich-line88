@@ -67,7 +67,7 @@ export function HeroSection() {
 
           <div className="relative overflow-hidden rounded-[2.5rem] border border-white bg-white p-3 shadow-[0_24px_80px_rgba(120,80,70,0.16)]">
             <Image
-              src="/images/hero.jpg"
+              src="/images/hero.png"
               alt="醫美診所專業諮詢形象"
               width={720}
               height={860}
