@@ -74,7 +74,7 @@ function BlogPageContent() {
           { start, end, selectedTag },
           { cache: "no-store" }
         )
-
+        console.log("Sanity posts result:", result)
         const processedPosts = result.map((post: any) => {
           let extractedImg = ""
           let extractedDesc = post.description || ""
