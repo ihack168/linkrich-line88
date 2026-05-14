@@ -47,12 +47,12 @@ function BlogPageContent() {
 
         const tagFilter =
           selectedTag !== "全部"
-            ? `&& "${selectedTag}" in tags`
+            ? `&& $selectedTag in tags`
             : ""
 
         const count = await client.fetch(
           `count(*[_type == "post" ${tagFilter}])`,
-          {},
+          { selectedTag },
           { cache: "no-store" }
         )
 
@@ -63,15 +63,15 @@ function BlogPageContent() {
             "id": _id,
             title,
             "slug": slug.current,
-            "description": description,
+            description,
             "imageUrl": imageUrl,
             "mainImage": mainImage.asset->url,
-            "htmlContent": htmlContent,
+            htmlContent,
             "videoId": youtubeVideoId,
             "tags": tags,
             "publishedAt": coalesce(publishedAt, _createdAt)
           }`,
-          { start, end },
+          { start, end, selectedTag },
           { cache: "no-store" }
         )
 
