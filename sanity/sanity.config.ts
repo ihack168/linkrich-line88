@@ -6,7 +6,7 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'line88-blog',
+  title: 'linkrich-line88',
 
   projectId: 'no0ub4vm',
   dataset: 'production',
