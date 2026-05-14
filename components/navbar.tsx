@@ -64,7 +64,7 @@ export function Navbar() {
 
             <div className="leading-tight">
               <span className="block text-lg font-bold tracking-tight text-foreground md:text-xl">
-                品牌醫美診所
+                美麗好診所
               </span>
               <span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
                 AESTHETIC CLINIC

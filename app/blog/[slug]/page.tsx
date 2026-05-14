@@ -1,67 +1,90 @@
-import { client } from "@/lib/sanity"; 
-import { createImageUrlBuilder } from "@sanity/image-url";
-import { PortableText } from "@portabletext/react";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import type { Metadata } from "next";
+import { client } from "@/lib/sanity"
+import { createImageUrlBuilder } from "@sanity/image-url"
+import { PortableText } from "@portabletext/react"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
+import { notFound } from "next/navigation"
+import Link from "next/link"
+import type { Metadata } from "next"
 
-export const revalidate = 0; 
-export const dynamic = 'force-dynamic';
+export const revalidate = 0
+export const dynamic = "force-dynamic"
 
-const builder = createImageUrlBuilder(client);
+const siteName = "美麗好診所"
+const siteUrl = "https://www.example.com"
+
+const builder = createImageUrlBuilder(client)
+
 function urlFor(source: any) {
-  if (!source) return { url: () => "" };
-  return builder.image(source);
+  if (!source) return { url: () => "" }
+  return builder.image(source)
 }
 
 const ptComponents = {
   types: {
     image: ({ value }: any) => {
-      if (!value?.asset?._ref) return null;
+      if (!value?.asset?._ref) return null
+
       return (
         <figure className="my-10 flex flex-col items-center">
           <img
             src={urlFor(value).url()}
             alt={value.alt || "文章圖片"}
-            className="w-full rounded-2xl border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+            className="w-full rounded-[2rem] border border-border shadow-[0_16px_50px_rgba(120,80,70,0.12)]"
             loading="lazy"
           />
+
           {value.caption && (
-            <figcaption className="mt-3 text-sm text-gray-500 italic text-center">{value.caption}</figcaption>
+            <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+              {value.caption}
+            </figcaption>
           )}
         </figure>
-      );
+      )
     },
   },
-};
+}
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+
   const post = await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0]{ title, description, "mainImage": mainImage.asset->url }`,
+    `*[_type == "post" && slug.current == $slug][0]{
+      title,
+      description,
+      "mainImage": mainImage.asset->url
+    }`,
     { slug }
-  );
-  if (!post) return {};
+  )
+
+  if (!post) return {}
+
   return {
-    title: `${post.title} | 洛克希德黑克斯`,
+    title: `${post.title} | ${siteName}`,
     description: post.description || post.title,
     openGraph: {
       title: post.title,
       description: post.description || post.title,
-      url: `https://www.line88.tw/blog/${slug}`,
-      siteName: "洛克希德黑克斯",
+      url: `${siteUrl}/blog/${slug}`,
+      siteName,
       images: post.mainImage ? [{ url: post.mainImage }] : [],
       locale: "zh_TW",
       type: "article",
     },
-  };
+  }
 }
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug;
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const resolvedParams = await params
+  const slug = resolvedParams.slug
 
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
@@ -71,15 +94,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       publishedAt,
       mainImage,
       body,
-      htmlContent, 
+      htmlContent,
       "authorName": author->name,
       "tags": categories[]->title
     }`,
     { slug },
-    { cache: 'no-store' } 
-  );
+    { cache: "no-store" }
+  )
 
-  if (!post) notFound();
+  if (!post) notFound()
 
   const publishedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("zh-TW", {
@@ -87,7 +110,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         month: "long",
         day: "numeric",
       })
-    : null;
+    : null
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -96,152 +119,192 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     description: post.description || post.title,
     author: {
       "@type": "Person",
-      name: post.authorName || "洛克希德黑克斯",
+      name: post.authorName || siteName,
     },
     publisher: {
-      "@type": "Organization",
-      name: "洛克希德黑克斯",
-      url: "https://www.line88.tw",
+      "@type": "MedicalClinic",
+      name: siteName,
+      url: siteUrl,
     },
     datePublished: post.publishedAt,
-    url: `https://www.line88.tw/blog/${slug}`,
-  };
+    url: `${siteUrl}/blog/${slug}`,
+  }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       <Navbar />
-      <main className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
 
-        {/* 麵包屑 */}
-        <nav className="flex items-center gap-2 text-sm text-gray-600 mb-10 font-mono">
-          <Link href="/" className="hover:text-[#ff8800] transition-colors">首頁</Link>
-          <span>/</span>
-          <Link href="/blog" className="hover:text-[#ff8800] transition-colors">最新文章</Link>
-          <span>/</span>
-          <span className="text-gray-400 truncate max-w-xs">{post.title}</span>
-        </nav>
+      <main className="relative overflow-hidden px-6 pb-24 pt-32">
+        <div className="absolute left-1/2 top-20 -z-10 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-primary/10 blur-[110px]" />
+        <div className="absolute right-0 top-96 -z-10 h-[260px] w-[260px] rounded-full bg-accent/10 blur-[100px]" />
 
-        {/* 標籤 */}
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6">
-            {post.tags.map((tag: string) => (
-              <span key={tag} className="text-[#ff8800] bg-[#ff8800]/10 border border-[#ff8800]/20 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="mx-auto max-w-4xl">
+          {/* 麵包屑 */}
+          <nav className="mb-10 flex items-center gap-2 text-sm text-muted-foreground">
+            <Link href="/" className="transition-colors hover:text-primary">
+              首頁
+            </Link>
+            <span>/</span>
+            <Link href="/blog" className="transition-colors hover:text-primary">
+              最新文章
+            </Link>
+            <span>/</span>
+            <span className="max-w-xs truncate text-foreground">
+              {post.title}
+            </span>
+          </nav>
 
-        {/* 標題 */}
-        <h1 className="text-4xl md:text-6xl font-black mb-6 italic leading-tight text-[#ff8800]">
-          {post.title}
-        </h1>
-
-        {/* 作者與日期 */}
-        <div className="flex items-center gap-4 text-gray-400 mb-12 text-sm border-b border-white/10 pb-8">
-          <span className="font-bold text-gray-200">✍ {post.authorName || "Lockhead Hex Admin"}</span>
-          <span className="text-white/20">|</span>
-          <span>{publishedDate}</span>
-        </div>
-
-        {/* 主圖 */}
-        {post.mainImage && (
-          <div className="relative w-full mb-16 rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(255,136,0,0.1)]">
-            <img
-              src={urlFor(post.mainImage).url()}
-              alt={post.title}
-              className="w-full object-cover"
-            />
-          </div>
-        )}
-
-        {/* 內容 */}
-        <article className="
-          prose prose-invert prose-orange max-w-none
-          prose-lg md:prose-xl
-          prose-p:text-gray-300 prose-p:leading-[1.9] prose-p:mb-4
-          prose-headings:text-[#ff8800] prose-headings:font-black prose-headings:italic
-          prose-h2:text-3xl prose-h2:border-l-8 prose-h2:border-[#ff8800] prose-h2:pl-6 prose-h2:mt-12 prose-h2:mb-6
-          prose-h3:text-2xl prose-h3:mt-8
-          prose-strong:text-[#ff8800] prose-strong:font-bold
-          prose-ul:bg-white/5 prose-ul:p-8 prose-ul:rounded-2xl prose-ul:border prose-ul:border-white/10
-          prose-li:marker:text-[#ff8800] prose-li:text-gray-300
-          prose-table:border-collapse prose-table:my-10 prose-table:block prose-table:overflow-x-auto
-          prose-thead:bg-[#ff8800]/20 prose-th:text-[#ff8800] prose-th:p-4 prose-th:border prose-th:border-white/10
-          prose-td:p-4 prose-td:border prose-td:border-white/10 prose-td:text-gray-300
-          prose-img:rounded-2xl prose-img:border prose-img:border-white/10
-          prose-blockquote:border-l-[#ff8800] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:italic
-        ">
-          {post.htmlContent ? (
-            <div
-              className="
-                [&_tr]:!bg-transparent
-                [&_th]:!bg-[#ff8800]/20
-                [&_table]:!w-full
-                [&_td]:!border
-                [&_td]:!border-white/20
-                [&_th]:!border
-                [&_th]:!border-white/20
-                [&_table]:!border-collapse
-                [&_table]:!border
-                [&_table]:!border-white/20
-                [&_img]:rounded-2xl
-                [&_img]:border
-                [&_img]:border-white/10
-                [&_img]:shadow-lg
-                [&_img]:my-8
-                [&_img]:mx-auto
-                [&_img]:block
-                [&_p]:mb-4
-                [&_p]:leading-[1.9]
-                [&_p]:text-gray-300
-                [&_h2]:text-3xl
-                [&_h2]:font-black
-                [&_h2]:italic
-                [&_h2]:text-[#ff8800]
-                [&_h2]:border-l-8
-                [&_h2]:border-[#ff8800]
-                [&_h2]:pl-6
-                [&_h2]:mt-12
-                [&_h2]:mb-6
-                [&_li]:text-gray-300
-                [&_li]:mb-1
-              "
-              dangerouslySetInnerHTML={{ __html: post.htmlContent }}
-            />
-          ) : (
-            post.body && <PortableText value={post.body} components={ptComponents} />
+          {/* 標籤 */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {post.tags.map((tag: string) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
           )}
-        </article>
 
-        {/* 底部按鈕 */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-[#ff8800] px-6 py-3 rounded-xl transition-all text-sm font-black border border-white/10"
+          {/* 標題 */}
+          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
+            {post.title}
+          </h1>
+
+          {/* 作者與日期 */}
+          <div className="mb-12 flex flex-wrap items-center gap-4 border-b border-border pb-8 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">
+              撰文者：{post.authorName || siteName}
+            </span>
+
+            {publishedDate && (
+              <>
+                <span className="text-border">|</span>
+                <span>{publishedDate}</span>
+              </>
+            )}
+          </div>
+
+          {/* 主圖 */}
+          {post.mainImage && (
+            <div className="mb-16 overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_20px_70px_rgba(120,80,70,0.12)]">
+              <img
+                src={urlFor(post.mainImage).url()}
+                alt={post.title}
+                className="w-full object-cover"
+              />
+            </div>
+          )}
+
+          {/* 內容 */}
+          <article
+            className="
+              prose max-w-none
+              prose-lg md:prose-xl
+              prose-p:mb-5 prose-p:leading-[1.9] prose-p:text-muted-foreground
+              prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-foreground
+              prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-l-4 prose-h2:border-primary prose-h2:pl-5 prose-h2:text-3xl
+              prose-h3:mt-8 prose-h3:text-2xl
+              prose-strong:font-bold prose-strong:text-foreground
+              prose-a:text-primary prose-a:no-underline hover:prose-a:opacity-70
+              prose-ul:rounded-[1.5rem] prose-ul:border prose-ul:border-border prose-ul:bg-white/70 prose-ul:p-8 prose-ul:shadow-sm
+              prose-li:text-muted-foreground prose-li:marker:text-primary
+              prose-table:my-10 prose-table:block prose-table:overflow-x-auto prose-table:border-collapse
+              prose-thead:bg-primary/10 prose-th:border prose-th:border-border prose-th:p-4 prose-th:text-primary
+              prose-td:border prose-td:border-border prose-td:p-4 prose-td:text-muted-foreground
+              prose-img:rounded-[2rem] prose-img:border prose-img:border-border
+              prose-blockquote:rounded-r-2xl prose-blockquote:border-l-primary prose-blockquote:bg-white/70 prose-blockquote:px-6 prose-blockquote:py-3 prose-blockquote:text-muted-foreground
+            "
           >
-            ← 返回文章列表
-          </Link>
-          <Link
-            href="/#contact"
-            className="inline-flex items-center gap-2 bg-[#ff8800] hover:bg-[#ff8800]/80 text-black px-6 py-3 rounded-xl transition-colors text-sm font-black shadow-[0_0_20px_rgba(255,136,0,0.3)]"
-          >
-            立即聯絡我們 →
-          </Link>
+            {post.htmlContent ? (
+              <div
+                className="
+                  [&_table]:!my-10
+                  [&_table]:!w-full
+                  [&_table]:!border-collapse
+                  [&_table]:!overflow-hidden
+                  [&_table]:!rounded-2xl
+                  [&_th]:!border
+                  [&_th]:!border-border
+                  [&_th]:!bg-primary/10
+                  [&_th]:!p-4
+                  [&_th]:!text-primary
+                  [&_td]:!border
+                  [&_td]:!border-border
+                  [&_td]:!p-4
+                  [&_td]:!text-muted-foreground
+                  [&_tr]:!bg-transparent
+                  [&_img]:mx-auto
+                  [&_img]:my-8
+                  [&_img]:block
+                  [&_img]:rounded-[2rem]
+                  [&_img]:border
+                  [&_img]:border-border
+                  [&_img]:shadow-[0_16px_50px_rgba(120,80,70,0.12)]
+                  [&_p]:mb-5
+                  [&_p]:leading-[1.9]
+                  [&_p]:text-muted-foreground
+                  [&_h2]:mt-12
+                  [&_h2]:mb-6
+                  [&_h2]:border-l-4
+                  [&_h2]:border-primary
+                  [&_h2]:pl-5
+                  [&_h2]:text-3xl
+                  [&_h2]:font-bold
+                  [&_h2]:text-foreground
+                  [&_h3]:mt-8
+                  [&_h3]:text-2xl
+                  [&_h3]:font-bold
+                  [&_h3]:text-foreground
+                  [&_li]:mb-1
+                  [&_li]:text-muted-foreground
+                  [&_strong]:text-foreground
+                "
+                dangerouslySetInnerHTML={{ __html: post.htmlContent }}
+              />
+            ) : (
+              post.body && (
+                <PortableText value={post.body} components={ptComponents} />
+              )
+            )}
+          </article>
+
+          {/* 底部按鈕 */}
+          <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-6 py-3 text-sm font-semibold text-muted-foreground shadow-sm transition-all hover:border-primary/40 hover:text-primary"
+            >
+              ← 返回文章列表
+            </Link>
+
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(217,143,143,0.32)] transition-all hover:-translate-y-0.5"
+            >
+              預約專業諮詢 →
+            </Link>
+          </div>
         </div>
       </main>
+
       <Footer />
     </div>
-  );
+  )
 }
 
 export async function generateStaticParams() {
-  const query = `*[_type == "post"]{ "slug": slug.current }`;
-  const posts = await client.fetch(query);
-  if (!posts) return [];
-  return posts.map((post: any) => ({ slug: post.slug }));
+  const query = `*[_type == "post"]{ "slug": slug.current }`
+  const posts = await client.fetch(query)
+
+  if (!posts) return []
+
+  return posts.map((post: any) => ({ slug: post.slug }))
 }
