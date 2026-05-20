@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation"
 
 const navLinks = [
   { label: "首頁", href: "/" },
-  //{ label: "療程介紹", href: "/#services" },
+  { label: "服務內容", href: "/#services" },
   { label: "最新文章", href: "/blog" },
-  //{ label: "聯絡我們", href: "/#contact" },
+  { label: "聯絡諮詢", href: "/#contact" },
 ]
 
 export function Navbar() {
@@ -49,8 +49,8 @@ export function Navbar() {
             pointer-events-auto flex items-center justify-between transition-all duration-500
             ${
               scrolled
-                ? "mt-4 h-16 w-[92%] max-w-6xl rounded-full border border-border/70 bg-white/85 px-5 shadow-[0_18px_50px_rgba(120,80,70,0.12)] backdrop-blur-xl md:w-[86%] md:px-7"
-                : "h-20 w-full border-b border-border/60 bg-white/75 px-5 backdrop-blur-xl md:px-10"
+                ? "mt-4 h-16 w-[92%] max-w-6xl rounded-full border border-border/70 bg-white/90 px-5 shadow-[0_18px_50px_rgba(31,78,121,0.14)] backdrop-blur-xl md:w-[86%] md:px-7"
+                : "h-20 w-full border-b border-border/60 bg-white/80 px-5 backdrop-blur-xl md:px-10"
             }
           `}
         >
@@ -58,23 +58,23 @@ export function Navbar() {
           <Link href="/" className="relative z-[60] flex items-center gap-3">
             <img
               src="/images/logo.png"
-              alt="美麗好診所 Logo"
+              alt="社會住宅包租代管服務 Logo"
               className="h-10 w-10 rounded-full border border-primary/20 bg-white object-cover shadow-sm"
             />
 
             <div className="leading-tight">
-              <span className="block text-lg font-bold tracking-tight text-foreground md:text-xl">
-                美麗好診所
+              <span className="block text-base font-black tracking-tight text-foreground md:text-xl">
+                社會住宅包租代管
               </span>
 
               <span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
-                AESTHETIC CLINIC
+                RENTAL MANAGEMENT SERVICE
               </span>
             </div>
           </Link>
 
           {/* 電腦版選單 */}
-          <div className="hidden items-center gap-10 md:flex">
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -106,13 +106,13 @@ export function Navbar() {
                 text-sm md:text-base
                 font-semibold
                 text-primary-foreground
-                shadow-[0_10px_30px_rgba(217,143,143,0.28)]
+                shadow-[0_10px_30px_rgba(31,78,121,0.25)]
                 transition-all
                 hover:-translate-y-0.5
-                hover:shadow-[0_14px_36px_rgba(217,143,143,0.38)]
+                hover:shadow-[0_14px_36px_rgba(31,78,121,0.35)]
               "
             >
-              LINE 諮詢
+              LINE 免費諮詢
             </a>
           </div>
 
@@ -145,11 +145,11 @@ export function Navbar() {
 
           <div className="mb-8">
             <p className="text-sm tracking-[0.24em] text-muted-foreground">
-              AESTHETIC CLINIC
+              RENTAL MANAGEMENT
             </p>
 
-            <p className="mt-2 text-2xl font-bold text-foreground">
-              美麗好診所
+            <p className="mt-2 text-2xl font-black text-foreground">
+              社會住宅包租代管
             </p>
           </div>
 
@@ -180,15 +180,15 @@ export function Navbar() {
               rounded-full bg-primary
               text-base font-semibold
               text-primary-foreground
-              shadow-[0_14px_36px_rgba(217,143,143,0.32)]
+              shadow-[0_14px_36px_rgba(31,78,121,0.28)]
             "
           >
-            加入 LINE 預約諮詢
+            加入 LINE 免費諮詢
           </a>
 
           <div className="mt-auto pb-8 text-sm leading-7 text-muted-foreground">
-            <p>專業醫美療程｜肌膚管理｜微整形諮詢</p>
-            <p>自然、細緻、安心的美麗體驗</p>
+            <p>房東安心出租｜租客穩定入住｜專業租務管理</p>
+            <p>社會住宅包租代管與租屋補助諮詢服務</p>
           </div>
         </div>
       )}

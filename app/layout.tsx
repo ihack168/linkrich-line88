@@ -3,6 +3,8 @@ import { Noto_Sans_TC, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
+const siteUrl = 'https://home.line88.tw'
+
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
   weight: ['400', '500', '700', '900'],
@@ -15,15 +17,31 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: '美麗好診所｜專業醫美療程、肌膚管理與微整形諮詢',
+  title: {
+    default: '社會住宅包租代管服務｜房東安心出租，租客穩定入住',
+    template: '%s｜社會住宅包租代管服務',
+  },
 
   description:
-    '美麗好診所提供專業醫美療程、肌膚管理、雷射光療、微整形注射與客製化保養建議，打造自然、細緻、安心的美麗體驗。',
+    '提供社會住宅包租代管諮詢與媒合服務，協助房東了解政府包租代管方案、房屋出租管理、租客媒合、租金收付與後續服務，讓出租更安心、省時、有保障。',
 
-  metadataBase: new URL('https://www.example.com'),
+  keywords: [
+    '社會住宅包租代管',
+    '社會住宅包租代管服務',
+    '包租代管',
+    '社宅包租代管',
+    '政府包租代管',
+    '房東包租代管',
+    '租屋代管',
+    '租屋補助',
+    '出租管理',
+    '房屋出租',
+  ],
+
+  metadataBase: new URL(siteUrl),
 
   alternates: {
-    canonical: 'https://www.example.com',
+    canonical: siteUrl,
   },
 
   icons: {
@@ -43,20 +61,29 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: '美麗好診所｜專業醫美療程與肌膚管理',
+    title: '社會住宅包租代管服務｜房東安心出租，租客穩定入住',
     description:
-      '提供肌膚管理、雷射光療、微整形注射與客製化醫美諮詢，陪你打造自然細緻的理想狀態。',
-    url: 'https://www.example.com',
-    siteName: '美麗好診所',
+      '協助房東了解社會住宅包租代管方案，提供房屋評估、租客媒合、出租管理與後續服務，讓閒置房屋變成穩定收益。',
+    url: siteUrl,
+    siteName: '社會住宅包租代管服務',
     locale: 'zh_TW',
     type: 'website',
+    images: [
+      {
+        url: '/images/og-home.jpg',
+        width: 1200,
+        height: 630,
+        alt: '社會住宅包租代管服務',
+      },
+    ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: '美麗好診所｜專業醫美療程與肌膚管理',
+    title: '社會住宅包租代管服務｜房東安心出租，租客穩定入住',
     description:
-      '肌膚管理、雷射光療、微整形注射與客製化醫美諮詢服務。',
+      '房屋評估、租客媒合、出租管理與包租代管諮詢服務，協助房東安心出租。',
+    images: ['/images/og-home.jpg'],
   },
 }
 
