@@ -16,7 +16,7 @@ export default function Home() {
       // 公司資訊
       {
         "@type": "LocalBusiness",
-        "name": "社會住宅包租代管服務",
+        "name": "社會住宅包租代管資訊站",
         "url": "https://home.line88.tw",
         "description":
           "提供社會住宅包租代管、房屋出租管理、租客媒合與租屋補助相關諮詢服務，協助房東安心出租。",

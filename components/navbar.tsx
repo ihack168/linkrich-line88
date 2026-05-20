@@ -58,13 +58,13 @@ export function Navbar() {
           <Link href="/" className="relative z-[60] flex items-center gap-3">
             <img
               src="/images/logo.png"
-              alt="社會住宅包租代管服務 Logo"
+              alt="社會住宅包租代管資訊站 Logo"
               className="h-10 w-10 rounded-full border border-primary/20 bg-white object-cover shadow-sm"
             />
 
             <div className="leading-tight">
               <span className="block text-base font-black tracking-tight text-foreground md:text-xl">
-                社會住宅包租代管
+                社會住宅包租代管資訊站
               </span>
 
               <span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
@@ -149,7 +149,7 @@ export function Navbar() {
             </p>
 
             <p className="mt-2 text-2xl font-black text-foreground">
-              社會住宅包租代管
+              社會住宅包租代管資訊站
             </p>
           </div>
 

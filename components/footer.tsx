@@ -84,7 +84,7 @@ export function Footer() {
       <div className="relative mx-auto mt-10 max-w-6xl border-t border-border/60 pt-6 text-center">
 
         <p className="text-xs tracking-wide text-muted-foreground">
-          © 2026 社會住宅包租代管服務. All rights reserved.
+          © 2026 社會住宅包租代管資訊站. All rights reserved.
         </p>
 
       </div>

@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     description:
       '協助房東了解社會住宅包租代管方案，提供房屋評估、租客媒合、出租管理與後續服務，讓閒置房屋變成穩定收益。',
     url: siteUrl,
-    siteName: '社會住宅包租代管服務',
+    siteName: '社會住宅包租代管資訊站',
     locale: 'zh_TW',
     type: 'website',
     images: [
