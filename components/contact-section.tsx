@@ -16,13 +16,6 @@ const contacts = [
     icon: <MessageCircle size={28} />,
   },
   {
-    label: "Email 聯絡",
-    description:
-      "service@example.com",
-    href: "mailto:service@example.com",
-    icon: <Mail size={28} />,
-  },
-  {
     label: "電話諮詢",
     description:
       "提供房東出租與包租代管相關服務說明。",

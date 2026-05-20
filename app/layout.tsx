@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: '社會住宅包租代管服務｜房東安心出租，租客穩定入住',
-    template: '%s｜社會住宅包租代管服務',
+  default: '社會住宅包租代管資訊站｜房東安心出租，租客穩定入住',
+  template: '%s｜社會住宅包租代管資訊站',
   },
 
   description:
