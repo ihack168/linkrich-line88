@@ -2,7 +2,6 @@
 
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
-import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -128,9 +127,7 @@ export default function Home() {
           </a>
         </section>
 
-        <div id="contact">
-          <ContactSection />
-        </div>
+
       </main>
 
       <Footer />
