@@ -125,9 +125,9 @@ export function LineConsultButton({
           <div className="my-auto w-full max-w-sm rounded-2xl bg-white p-6 text-left shadow-xl">
             {modalStep === "role" && (
               <>
-                <h3 className="text-center text-2xl font-black text-foreground">
-                  你是房東還是房客？
-                </h3>
+<h3 className="text-center text-3xl font-black tracking-wide text-red-600 animate-pulse">
+  你是房東還是房客？
+</h3>
 
                 <div className="mt-8 grid grid-cols-2 gap-4">
                   <label
@@ -150,7 +150,7 @@ export function LineConsultButton({
                   <label
                     className={`flex cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 py-5 text-lg font-black transition-all ${
                       role === "tenant"
-                        ? "border-red-500 bg-red-50 text-red-600"
+                        ? "border-red-600 bg-red-100 text-red-700 shadow-md"
                         : "border-border text-foreground"
                     }`}
                   >
@@ -166,9 +166,9 @@ export function LineConsultButton({
                 </div>
 
                 {tenantBlocked && (
-                  <p className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-center text-sm font-semibold text-red-600">
-                    很抱歉我們不接受房客咨詢
-                  </p>
+<p className="mt-5 rounded-2xl border-2 border-red-500 bg-red-50 px-4 py-4 text-center text-base font-black text-red-700 shadow-sm">
+  很抱歉，我們目前僅提供房東咨詢服務
+</p>
                 )}
 
                 <button
