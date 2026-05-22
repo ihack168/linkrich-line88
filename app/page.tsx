@@ -14,22 +14,50 @@ const VENDOR_NAME = "社會住宅包租代管資訊站";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+  const [modalStep, setModalStep] = useState<"role" | "form">("role");
   const [role, setRole] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneLast3, setPhoneLast3] = useState("");
+  const [tenantBlocked, setTenantBlocked] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const resetModal = () => {
+    setShowModal(false);
+    setModalStep("role");
+    setRole("");
+    setLastName("");
+    setPhoneLast3("");
+    setTenantBlocked(false);
+    setLoading(false);
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+    setModalStep("role");
+    setRole("");
+    setLastName("");
+    setPhoneLast3("");
+    setTenantBlocked(false);
+  };
+
+  const handleSelectRole = (selectedRole: string) => {
+    setRole(selectedRole);
+
+    if (selectedRole === "tenant") {
+      setTenantBlocked(true);
+      return;
+    }
+
+    setTenantBlocked(false);
+    setModalStep("form");
+  };
 
   const handleSubmitLineConsult = async () => {
     const cleanLastName = lastName.trim();
     const cleanPhoneLast3 = phoneLast3.trim();
 
-    if (!role) {
-      alert("請選擇你是房東還是房客");
-      return;
-    }
-
-    if (role === "tenant") {
-      alert("很抱歉我們不接受房客咨詢");
+    if (role !== "landlord") {
+      alert("請先選擇房東");
       return;
     }
 
@@ -66,10 +94,7 @@ export default function Home() {
         return;
       }
 
-      setShowModal(false);
-      setRole("");
-      setLastName("");
-      setPhoneLast3("");
+      resetModal();
 
       window.open(LINE_ADD_URL, "_blank", "noopener,noreferrer");
     } catch (error) {
@@ -193,7 +218,7 @@ export default function Home() {
 
           <button
             type="button"
-            onClick={() => setShowModal(true)}
+            onClick={handleOpenModal}
             className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)] transition-all hover:-translate-y-0.5"
           >
             加入 LINE 免費諮詢
@@ -206,107 +231,136 @@ export default function Home() {
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-left shadow-xl">
-            <h3 className="text-xl font-black text-foreground">
-              LINE 免費諮詢
-            </h3>
+            {modalStep === "role" && (
+              <>
+                <h3 className="text-center text-2xl font-black text-foreground">
+                  你是房東還是房客？
+                </h3>
 
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              請先選擇身份，並留下貴姓與手機末 3 碼，送出後會自動開啟
-              LINE 加好友。
-            </p>
+                <div className="mt-8 grid grid-cols-2 gap-4">
+                  <label
+                    className={`flex cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 py-5 text-lg font-black transition-all ${
+                      role === "landlord"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border text-foreground"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="role"
+                      value="landlord"
+                      checked={role === "landlord"}
+                      onChange={() => handleSelectRole("landlord")}
+                      className="h-5 w-5"
+                    />
+                    房東
+                  </label>
 
-            <div className="mt-5">
-              <label className="text-sm font-semibold text-foreground">
-                你是房東還是房客？
-              </label>
+                  <label
+                    className={`flex cursor-pointer items-center justify-center gap-2 rounded-2xl border px-4 py-5 text-lg font-black transition-all ${
+                      role === "tenant"
+                        ? "border-red-500 bg-red-50 text-red-600"
+                        : "border-border text-foreground"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="role"
+                      value="tenant"
+                      checked={role === "tenant"}
+                      onChange={() => handleSelectRole("tenant")}
+                      className="h-5 w-5"
+                    />
+                    房客
+                  </label>
+                </div>
 
-<div className="mt-3 flex gap-4">
-  <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-foreground">
-    <input
-      type="radio"
-      name="role"
-      value="landlord"
-      checked={role === "landlord"}
-      onChange={(e) => setRole(e.target.value)}
-      className="h-4 w-4"
-    />
-    房東
-  </label>
+                {tenantBlocked && (
+                  <p className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-center text-sm font-semibold text-red-600">
+                    很抱歉我們不接受房客咨詢
+                  </p>
+                )}
 
-  <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-foreground">
-    <input
-      type="radio"
-      name="role"
-      value="tenant"
-      checked={role === "tenant"}
-      onChange={(e) => setRole(e.target.value)}
-      className="h-4 w-4"
-    />
-    房客
-  </label>
-</div>
+                <button
+                  type="button"
+                  onClick={resetModal}
+                  className="mt-6 w-full rounded-xl border border-border px-4 py-3 text-sm font-semibold text-foreground"
+                >
+                  取消
+                </button>
+              </>
+            )}
 
-              {role === "tenant" && (
-                <p className="mt-2 text-sm font-semibold text-red-600">
-                  很抱歉我們不接受房客咨詢
+            {modalStep === "form" && (
+              <>
+                <h3 className="text-xl font-black text-foreground">
+                  LINE 免費諮詢
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  請留下貴姓與手機末 3 碼，送出後會自動開啟 LINE 加好友。
                 </p>
-              )}
-            </div>
 
-            <div className="mt-5">
-              <label className="text-sm font-semibold text-foreground">
-                貴姓
-              </label>
+                <div className="mt-5">
+                  <label className="text-sm font-semibold text-foreground">
+                    貴姓
+                  </label>
 
-              <input
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="例如：王"
-                className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
-              />
-            </div>
+                  <input
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="例如：王"
+                    className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
+                  />
+                </div>
 
-            <div className="mt-4">
-              <label className="text-sm font-semibold text-foreground">
-                手機末 3 碼
-              </label>
+                <div className="mt-4">
+                  <label className="text-sm font-semibold text-foreground">
+                    手機末 3 碼
+                  </label>
 
-              <input
-                value={phoneLast3}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "").slice(0, 3);
-                  setPhoneLast3(value);
-                }}
-                placeholder="例如：168"
-                inputMode="numeric"
-                maxLength={3}
-                className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
-              />
-            </div>
+                  <input
+                    value={phoneLast3}
+                    onChange={(e) => {
+                      const value = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 3);
+                      setPhoneLast3(value);
+                    }}
+                    placeholder="例如：168"
+                    inputMode="numeric"
+                    maxLength={3}
+                    className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
+                  />
+                </div>
 
-            <div className="mt-6 flex gap-3">
-              <button
-                type="button"
-                onClick={() => setShowModal(false)}
-                disabled={loading}
-                className="flex-1 rounded-xl border border-border px-4 py-3 text-sm font-semibold text-foreground"
-              >
-                取消
-              </button>
+                <div className="mt-6 flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setModalStep("role");
+                      setRole("");
+                      setLastName("");
+                      setPhoneLast3("");
+                      setTenantBlocked(false);
+                    }}
+                    disabled={loading}
+                    className="flex-1 rounded-xl border border-border px-4 py-3 text-sm font-semibold text-foreground"
+                  >
+                    上一步
+                  </button>
 
-              <button
-                type="button"
-                onClick={handleSubmitLineConsult}
-                disabled={loading || role === "tenant"}
-                className={`flex-1 rounded-xl px-4 py-3 text-sm font-semibold ${
-                  loading || role === "tenant"
-                    ? "cursor-not-allowed bg-gray-300 text-gray-500"
-                    : "bg-primary text-primary-foreground"
-                }`}
-              >
-                {loading ? "送出中..." : "送出並加 LINE"}
-              </button>
-            </div>
+                  <button
+                    type="button"
+                    onClick={handleSubmitLineConsult}
+                    disabled={loading}
+                    className="flex-1 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
+                  >
+                    {loading ? "送出中..." : "送出並加 LINE"}
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
