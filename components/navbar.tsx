@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
+import { LineConsultButton } from "@/components/line-consult-button"
 
 const navLinks = [
   { label: "首頁", href: "/" },
@@ -39,6 +40,14 @@ export function Navbar() {
     }
   }
 
+  const closeMobileMenu = () => {
+    setMobileOpen(false)
+
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "unset"
+    }
+  }
+
   return (
     <>
       <nav className="fixed left-0 right-0 top-0 z-[50] flex justify-center pointer-events-none">
@@ -52,7 +61,6 @@ export function Navbar() {
             }
           `}
         >
-          {/* Logo */}
           <Link href="/" className="relative z-[60] flex items-center gap-3">
             <img
               src="/images/logo.png"
@@ -71,50 +79,23 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* 電腦版選單 */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="
-                  group relative
-                  text-[15px] md:text-base
-                  font-semibold
-                  tracking-wide
-                  text-muted-foreground
-                  transition-colors
-                  hover:text-foreground
-                "
+                className="group relative text-[15px] md:text-base font-semibold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
-
                 <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100" />
               </Link>
             ))}
 
-            <a
-              href="https://line.me/R/ti/p/@你的LINEID"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                rounded-full
-                bg-primary
-                px-6 py-3
-                text-sm md:text-base
-                font-semibold
-                text-primary-foreground
-                shadow-[0_10px_30px_rgba(31,78,121,0.25)]
-                transition-all
-                hover:-translate-y-0.5
-                hover:shadow-[0_14px_36px_rgba(31,78,121,0.35)]
-              "
-            >
+            <LineConsultButton className="rounded-full bg-primary px-6 py-3 text-sm md:text-base font-semibold text-primary-foreground shadow-[0_10px_30px_rgba(31,78,121,0.25)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(31,78,121,0.35)]">
               LINE 免費諮詢
-            </a>
+            </LineConsultButton>
           </div>
 
-          {/* 手機漢堡按鈕 */}
           <button
             onClick={toggleMenu}
             aria-label="開啟選單"
@@ -127,7 +108,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* 手機全螢幕選單 */}
       {mobileOpen && (
         <div className="fixed inset-0 z-[100] flex flex-col bg-background px-7 pt-24 md:hidden animate-in fade-in duration-300">
           <button
@@ -156,33 +136,21 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => {
-                  setMobileOpen(false)
-                  document.body.style.overflow = "unset"
-                }}
+                onClick={closeMobileMenu}
                 className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
               >
                 {link.label}
-
                 <span className="text-primary">→</span>
               </Link>
             ))}
           </div>
 
-          <a
-            href="https://line.me/R/ti/p/@你的LINEID"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              mt-8 flex h-14 items-center justify-center
-              rounded-full bg-primary
-              text-base font-semibold
-              text-primary-foreground
-              shadow-[0_14px_36px_rgba(31,78,121,0.28)]
-            "
+          <LineConsultButton
+            className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]"
+            onClick={closeMobileMenu}
           >
             加入 LINE 免費諮詢
-          </a>
+          </LineConsultButton>
 
           <div className="mt-auto pb-8 text-sm leading-7 text-muted-foreground">
             <p>房東安心出租｜租客穩定入住｜專業租務管理</p>

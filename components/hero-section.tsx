@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { LineConsultButton } from "@/components/line-consult-button"
 
 export function HeroSection() {
   return (
@@ -12,10 +13,8 @@ export function HeroSection() {
       <div className="absolute right-0 top-32 -z-10 h-[260px] w-[260px] rounded-full bg-accent/10 blur-[100px]" />
 
       <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-
         {/* 左側內容 */}
         <div className="text-center md:text-left">
-
           <p className="mb-5 inline-flex rounded-full border border-primary/20 bg-white/90 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
             社會住宅｜包租代管｜房東安心出租
           </p>
@@ -36,11 +35,7 @@ export function HeroSection() {
 
           {/* CTA */}
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
-
-            <a
-              href="https://line.me/R/ti/p/@你的LINEID"
-              target="_blank"
-              rel="noopener noreferrer"
+            <LineConsultButton
               className="
                 rounded-full
                 bg-primary
@@ -54,7 +49,7 @@ export function HeroSection() {
               "
             >
               LINE 免費諮詢
-            </a>
+            </LineConsultButton>
 
             <Link
               href="/#services"
@@ -74,12 +69,10 @@ export function HeroSection() {
             >
               查看服務內容
             </Link>
-
           </div>
 
           {/* 資訊卡 */}
           <div className="mt-10 grid grid-cols-3 gap-3 rounded-3xl border border-border/70 bg-white/80 p-4 shadow-sm backdrop-blur">
-
             <div>
               <p className="text-xl font-black text-foreground">
                 專人
@@ -109,18 +102,14 @@ export function HeroSection() {
                 租務協助
               </p>
             </div>
-
           </div>
-
         </div>
 
         {/* 右側圖片 */}
         <div className="relative">
-
           <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-primary/20 via-white to-accent/20 blur-2xl" />
 
           <div className="relative overflow-hidden rounded-[2.5rem] border border-white bg-white p-3 shadow-[0_24px_80px_rgba(31,78,121,0.16)]">
-
             <Image
               src="/images/hero.png"
               alt="社會住宅包租代管服務"
@@ -132,7 +121,6 @@ export function HeroSection() {
 
             {/* 浮動資訊卡 */}
             <div className="absolute bottom-8 left-8 right-8 rounded-3xl border border-white/70 bg-white/90 p-5 shadow-lg backdrop-blur-xl">
-
               <p className="text-sm font-bold text-foreground">
                 社會住宅包租代管
               </p>
@@ -142,13 +130,9 @@ export function HeroSection() {
                 降低空租風險，
                 提升租務管理效率與居住品質。
               </p>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
     </section>
   )
