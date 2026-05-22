@@ -3,6 +3,7 @@ import { createImageUrlBuilder } from "@sanity/image-url"
 import { PortableText } from "@portabletext/react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { LineConsultButton } from "@/components/line-consult-button"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import type { Metadata } from "next"
@@ -122,7 +123,7 @@ export default async function PostPage({
       name: post.authorName || siteName,
     },
     publisher: {
-      "@type": "MedicalClinic",
+      "@type": "Organization",
       name: siteName,
       url: siteUrl,
     },
@@ -144,7 +145,6 @@ export default async function PostPage({
         <div className="absolute right-0 top-96 -z-10 h-[260px] w-[260px] rounded-full bg-accent/10 blur-[100px]" />
 
         <div className="mx-auto max-w-4xl">
-          {/* 麵包屑 */}
           <nav className="mb-10 flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="transition-colors hover:text-primary">
               首頁
@@ -159,7 +159,6 @@ export default async function PostPage({
             </span>
           </nav>
 
-          {/* 標籤 */}
           {post.tags && post.tags.length > 0 && (
             <div className="mb-6 flex flex-wrap gap-2">
               {post.tags.map((tag: string) => (
@@ -173,12 +172,10 @@ export default async function PostPage({
             </div>
           )}
 
-          {/* 標題 */}
           <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
             {post.title}
           </h1>
 
-          {/* 作者與日期 */}
           <div className="mb-12 flex flex-wrap items-center gap-4 border-b border-border pb-8 text-sm text-muted-foreground">
             <span className="font-medium text-foreground">
               撰文者：{post.authorName || siteName}
@@ -192,7 +189,6 @@ export default async function PostPage({
             )}
           </div>
 
-          {/* 主圖 */}
           {post.mainImage && (
             <div className="mb-16 overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_20px_70px_rgba(120,80,70,0.12)]">
               <img
@@ -203,7 +199,6 @@ export default async function PostPage({
             </div>
           )}
 
-          {/* 內容 */}
           <article
             className="
               prose max-w-none
@@ -276,7 +271,6 @@ export default async function PostPage({
             )}
           </article>
 
-          {/* 底部按鈕 */}
           <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
             <Link
               href="/blog"
@@ -285,19 +279,14 @@ export default async function PostPage({
               ← 返回文章列表
             </Link>
 
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(217,143,143,0.32)] transition-all hover:-translate-y-0.5"
-            >
+            <LineConsultButton className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(217,143,143,0.32)] transition-all hover:-translate-y-0.5">
               預約專業諮詢 →
-            </Link>
+            </LineConsultButton>
           </div>
         </div>
-  </main>
+      </main>
 
-      {/* 浮動諮詢按鈕 */}
-      <Link
-        href="/#contact"
+      <LineConsultButton
         className="
           fixed bottom-6 right-6 z-[9999]
           flex items-center gap-3
@@ -315,7 +304,6 @@ export default async function PostPage({
           hover:shadow-[0_22px_60px_rgba(217,143,143,0.5)]
         "
       >
-        {/* 呼吸動畫 */}
         <span className="relative flex h-3 w-3">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-60"></span>
           <span className="relative inline-flex h-3 w-3 rounded-full bg-white"></span>
@@ -323,10 +311,8 @@ export default async function PostPage({
 
         <span>立即諮詢</span>
 
-        <span className="transition-transform group-hover:translate-x-1">
-          →
-        </span>
-      </Link>
+        <span>→</span>
+      </LineConsultButton>
 
       <Footer />
     </div>
