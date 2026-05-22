@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 
 const navLinks = [
   { label: "首頁", href: "/" },
-  { label: "服務內容", href: "/#services" },
   { label: "最新文章", href: "/blog" },
 ]
 
