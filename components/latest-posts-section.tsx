@@ -131,7 +131,7 @@ export function LatestPostsSection() {
               key={post.id}
               className="group overflow-hidden rounded-[2rem] border border-border/70 bg-white/80 shadow-[0_10px_40px_rgba(120,80,70,0.08)] backdrop-blur transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(217,143,143,0.14)]"
             >
-              <div className="relative h-56 w-full overflow-hidden bg-muted">
+              <div className="relative aspect-video w-full overflow-hidden bg-muted">
                 {activeVideo === post.id && post.videoId ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${post.videoId}?autoplay=1`}
