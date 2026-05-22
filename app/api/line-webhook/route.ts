@@ -1,20 +1,5 @@
 export async function POST(req: Request) {
-  const body = await req.text();
-
-  try {
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbwFpZDhMveHhdOYdDkh02JpWk28jUCBqikyM-Urg_6Uw2jTH7d8ZluKxinKTWh5_20N/exec",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body
-      }
-    );
-  } catch (err) {
-    console.error(err);
-  }
+  console.log("LINE webhook received");
 
   return new Response("ok", {
     status: 200
