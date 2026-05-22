@@ -121,8 +121,8 @@ export function LineConsultButton({
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-left shadow-xl">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-black/50 px-4 py-8">
+          <div className="my-auto w-full max-w-sm rounded-2xl bg-white p-6 text-left shadow-xl">
             {modalStep === "role" && (
               <>
                 <h3 className="text-center text-2xl font-black text-foreground">
