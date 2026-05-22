@@ -1,6 +1,3 @@
-把主頁 `page.tsx` 整份換成這份，只多引入 `LatestPostsSection`，然後放在 Hero 下面：
-
-```tsx
 "use client";
 
 import { Navbar } from "@/components/navbar";
@@ -134,4 +131,3 @@ export default function Home() {
     </div>
   );
 }
-```
