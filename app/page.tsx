@@ -5,7 +5,8 @@ import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { Footer } from "@/components/footer";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFpZDhMveHhdOYdDkh02JpWk28jUCBqikyM-Urg_6Uw2jTH7d8ZluKxinKTWh5_20N/exec";
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwFpZDhMveHhdOYdDkh02JpWk28jUCBqikyM-Urg_6Uw2jTH7d8ZluKxinKTWh5_20N/exec";
 const LINE_ADD_URL = "https://line.me/R/ti/p/@gwp4644s";
 
 const VENDOR_ID = "linkrich";
@@ -13,6 +14,7 @@ const VENDOR_NAME = "社會住宅包租代管資訊站";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+  const [role, setRole] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneLast3, setPhoneLast3] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,6 +22,16 @@ export default function Home() {
   const handleSubmitLineConsult = async () => {
     const cleanLastName = lastName.trim();
     const cleanPhoneLast3 = phoneLast3.trim();
+
+    if (!role) {
+      alert("請選擇你是房東還是房客");
+      return;
+    }
+
+    if (role === "tenant") {
+      alert("很抱歉我們不接受房客咨詢");
+      return;
+    }
 
     if (!cleanLastName) {
       alert("請輸入貴姓");
@@ -40,6 +52,7 @@ export default function Home() {
           action: "lineConsult",
           vendorId: VENDOR_ID,
           vendorName: VENDOR_NAME,
+          role,
           lastName: cleanLastName,
           phoneLast3: cleanPhoneLast3,
           sourcePage: window.location.href
@@ -54,6 +67,7 @@ export default function Home() {
       }
 
       setShowModal(false);
+      setRole("");
       setLastName("");
       setPhoneLast3("");
 
@@ -70,19 +84,19 @@ export default function Home() {
     "@graph": [
       {
         "@type": "WebSite",
-        "name": "社會住宅包租代管資訊站",
-        "url": "https://home.line88.tw",
-        "description":
+        name: "社會住宅包租代管資訊站",
+        url: "https://home.line88.tw",
+        description:
           "提供社會住宅包租代管、房東出租、租客媒合、租屋補助與房屋出租管理相關資訊。"
       },
       {
         "@type": "LocalBusiness",
-        "name": "社會住宅包租代管資訊站",
-        "url": "https://home.line88.tw",
-        "description":
+        name: "社會住宅包租代管資訊站",
+        url: "https://home.line88.tw",
+        description:
           "提供社會住宅包租代管、房屋出租管理、租客媒合與租屋補助相關諮詢服務，協助房東安心出租。",
-        "areaServed": "TW",
-        "serviceType": [
+        areaServed: "TW",
+        serviceType: [
           "社會住宅包租代管",
           "房屋出租管理",
           "租客媒合",
@@ -91,40 +105,40 @@ export default function Home() {
       },
       {
         "@type": "FAQPage",
-        "mainEntity": [
+        mainEntity: [
           {
             "@type": "Question",
-            "name": "什麼是社會住宅包租代管？",
-            "acceptedAnswer": {
+            name: "什麼是社會住宅包租代管？",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text":
+              text:
                 "社會住宅包租代管是由專業單位協助房東出租房屋、管理租務與租客媒合的住宅服務模式。"
             }
           },
           {
             "@type": "Question",
-            "name": "房東加入包租代管有什麼好處？",
-            "acceptedAnswer": {
+            name: "房東加入包租代管有什麼好處？",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text":
+              text:
                 "房東可透過包租代管降低自行管理出租的時間成本，並透過專業協助提升出租效率與租務管理穩定度。"
             }
           },
           {
             "@type": "Question",
-            "name": "包租代管適合哪些房東？",
-            "acceptedAnswer": {
+            name: "包租代管適合哪些房東？",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text":
+              text:
                 "適合沒有時間管理出租、想降低空租風險、希望穩定出租，或想了解政府社會住宅包租代管方案的房東。"
             }
           },
           {
             "@type": "Question",
-            "name": "租客可以申請租屋補助嗎？",
-            "acceptedAnswer": {
+            name: "租客可以申請租屋補助嗎？",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text":
+              text:
                 "符合資格的租客可依政府規定申請租屋補助，實際資格與金額依各地政府公告為準。"
             }
           }
@@ -197,8 +211,31 @@ export default function Home() {
             </h3>
 
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              請先留下貴姓與手機末 3 碼，送出後會自動開啟 LINE 加好友。
+              請先選擇身份，並留下貴姓與手機末 3 碼，送出後會自動開啟
+              LINE 加好友。
             </p>
+
+            <div className="mt-5">
+              <label className="text-sm font-semibold text-foreground">
+                你是房東還是房客？
+              </label>
+
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
+              >
+                <option value="">請選擇</option>
+                <option value="landlord">房東</option>
+                <option value="tenant">房客</option>
+              </select>
+
+              {role === "tenant" && (
+                <p className="mt-2 text-sm font-semibold text-red-600">
+                  很抱歉我們不接受房客咨詢
+                </p>
+              )}
+            </div>
 
             <div className="mt-5">
               <label className="text-sm font-semibold text-foreground">
@@ -244,8 +281,12 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleSubmitLineConsult}
-                disabled={loading}
-                className="flex-1 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
+                disabled={loading || role === "tenant"}
+                className={`flex-1 rounded-xl px-4 py-3 text-sm font-semibold ${
+                  loading || role === "tenant"
+                    ? "cursor-not-allowed bg-gray-300 text-gray-500"
+                    : "bg-primary text-primary-foreground"
+                }`}
               >
                 {loading ? "送出中..." : "送出並加 LINE"}
               </button>
