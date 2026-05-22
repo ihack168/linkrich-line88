@@ -28,10 +28,6 @@ export function Footer() {
             首頁
           </a>
 
-          <a href="/#services" className="transition-colors hover:text-primary">
-            服務內容
-          </a>
-
           <a href="/blog" className="transition-colors hover:text-primary">
             最新文章
           </a>

@@ -51,24 +51,6 @@ export function HeroSection() {
               LINE 免費諮詢
             </LineConsultButton>
 
-            <Link
-              href="/#services"
-              className="
-                rounded-full
-                border border-border
-                bg-white
-                px-7 py-3.5
-                text-sm font-semibold
-                text-foreground
-                shadow-sm
-                transition-all
-                hover:-translate-y-0.5
-                hover:border-primary/40
-                hover:text-primary
-              "
-            >
-              查看服務內容
-            </Link>
           </div>
 
           {/* 資訊卡 */}
