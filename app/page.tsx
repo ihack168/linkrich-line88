@@ -220,15 +220,31 @@ export default function Home() {
                 你是房東還是房客？
               </label>
 
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
-              >
-                <option value="">請選擇</option>
-                <option value="landlord">房東</option>
-                <option value="tenant">房客</option>
-              </select>
+<div className="mt-3 flex gap-4">
+  <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-foreground">
+    <input
+      type="radio"
+      name="role"
+      value="landlord"
+      checked={role === "landlord"}
+      onChange={(e) => setRole(e.target.value)}
+      className="h-4 w-4"
+    />
+    房東
+  </label>
+
+  <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold text-foreground">
+    <input
+      type="radio"
+      name="role"
+      value="tenant"
+      checked={role === "tenant"}
+      onChange={(e) => setRole(e.target.value)}
+      className="h-4 w-4"
+    />
+    房客
+  </label>
+</div>
 
               {role === "tenant" && (
                 <p className="mt-2 text-sm font-semibold text-red-600">
