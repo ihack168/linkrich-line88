@@ -1,10 +1,70 @@
 "use client";
 
+import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
 import { Footer } from "@/components/footer";
 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFpZDhMveHhdOYdDkh02JpWk28jUCBqikyM-Urg_6Uw2jTH7d8ZluKxinKTWh5_20N/exec";
+const LINE_ADD_URL = "https://line.me/R/ti/p/@gwp4644s";
+
+const VENDOR_ID = "linkrich";
+const VENDOR_NAME = "社會住宅包租代管資訊站";
+
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+  const [lastName, setLastName] = useState("");
+  const [phoneLast3, setPhoneLast3] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmitLineConsult = async () => {
+    const cleanLastName = lastName.trim();
+    const cleanPhoneLast3 = phoneLast3.trim();
+
+    if (!cleanLastName) {
+      alert("請輸入貴姓");
+      return;
+    }
+
+    if (!/^\d{3}$/.test(cleanPhoneLast3)) {
+      alert("請輸入手機末 3 碼");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "lineConsult",
+          vendorId: VENDOR_ID,
+          vendorName: VENDOR_NAME,
+          lastName: cleanLastName,
+          phoneLast3: cleanPhoneLast3,
+          sourcePage: window.location.href
+        })
+      });
+
+      const result = await res.json();
+
+      if (!result.success) {
+        alert(result.message || "送出失敗，請稍後再試");
+        return;
+      }
+
+      setShowModal(false);
+      setLastName("");
+      setPhoneLast3("");
+
+      window.open(LINE_ADD_URL, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      alert("送出失敗，請稍後再試");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -117,20 +177,82 @@ export default function Home() {
             </div>
           </div>
 
-          <a
-            href="https://line.me/R/ti/p/@你的LINEID"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => setShowModal(true)}
             className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)] transition-all hover:-translate-y-0.5"
           >
             加入 LINE 免費諮詢
-          </a>
+          </button>
         </section>
-
-
       </main>
 
       <Footer />
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-left shadow-xl">
+            <h3 className="text-xl font-black text-foreground">
+              LINE 免費諮詢
+            </h3>
+
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              請先留下貴姓與手機末 3 碼，送出後會自動開啟 LINE 加好友。
+            </p>
+
+            <div className="mt-5">
+              <label className="text-sm font-semibold text-foreground">
+                貴姓
+              </label>
+
+              <input
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="例如：王"
+                className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="text-sm font-semibold text-foreground">
+                手機末 3 碼
+              </label>
+
+              <input
+                value={phoneLast3}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "").slice(0, 3);
+                  setPhoneLast3(value);
+                }}
+                placeholder="例如：168"
+                inputMode="numeric"
+                maxLength={3}
+                className="mt-2 w-full rounded-xl border border-border px-4 py-3 text-sm outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                disabled={loading}
+                className="flex-1 rounded-xl border border-border px-4 py-3 text-sm font-semibold text-foreground"
+              >
+                取消
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSubmitLineConsult}
+                disabled={loading}
+                className="flex-1 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
+              >
+                {loading ? "送出中..." : "送出並加 LINE"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
