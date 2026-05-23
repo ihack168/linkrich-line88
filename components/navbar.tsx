@@ -17,7 +17,9 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
+
     window.addEventListener("scroll", handleScroll)
+
     handleScroll()
 
     return () => window.removeEventListener("scroll", handleScroll)
@@ -33,6 +35,7 @@ export function Navbar() {
 
   const toggleMenu = () => {
     const nextState = !mobileOpen
+
     setMobileOpen(nextState)
 
     if (typeof document !== "undefined") {
@@ -61,7 +64,10 @@ export function Navbar() {
             }
           `}
         >
-          <Link href="/" className="relative z-[60] flex items-center gap-3">
+          <Link
+            href="/"
+            className="relative z-[60] flex items-center gap-3"
+          >
             <img
               src="/images/logo.png"
               alt="社會住宅包租代管資訊站 Logo"
@@ -79,6 +85,7 @@ export function Navbar() {
             </div>
           </Link>
 
+          {/* 電腦版 */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
@@ -87,6 +94,7 @@ export function Navbar() {
                 className="group relative text-[15px] md:text-base font-semibold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
+
                 <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100" />
               </Link>
             ))}
@@ -96,6 +104,7 @@ export function Navbar() {
             </LineConsultButton>
           </div>
 
+          {/* 手機漢堡 */}
           <button
             onClick={toggleMenu}
             aria-label="開啟選單"
@@ -108,6 +117,7 @@ export function Navbar() {
         </div>
       </nav>
 
+      {/* 手機選單 */}
       {mobileOpen && (
         <div className="fixed inset-0 z-[100] flex flex-col bg-background px-7 pt-24 md:hidden animate-in fade-in duration-300">
           <button
@@ -117,6 +127,7 @@ export function Navbar() {
           >
             <div className="relative h-6 w-6">
               <span className="absolute left-0 top-1/2 h-0.5 w-full rotate-45 rounded-full bg-foreground" />
+
               <span className="absolute left-0 top-1/2 h-0.5 w-full -rotate-45 rounded-full bg-foreground" />
             </div>
           </button>
@@ -140,28 +151,28 @@ export function Navbar() {
                 className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
               >
                 {link.label}
+
                 <span className="text-primary">→</span>
               </Link>
             ))}
 
-            <LineConsultButton
-              onClick={closeMobileMenu}
-              className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
-            >
-              聯絡方式
-              <span className="text-primary">→</span>
+            {/* 手機版聯絡方式 */}
+            <LineConsultButton className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary">
+              <>
+                聯絡方式
+                <span className="text-primary">→</span>
+              </>
             </LineConsultButton>
           </div>
 
-          <LineConsultButton
-            onClick={closeMobileMenu}
-            className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]"
-          >
+          {/* 手機版 CTA */}
+          <LineConsultButton className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
             加入 LINE 免費諮詢
           </LineConsultButton>
 
           <div className="mt-auto pb-8 text-sm leading-7 text-muted-foreground">
             <p>房東安心出租｜租客穩定入住｜專業租務管理</p>
+
             <p>社會住宅包租代管與租屋補助諮詢服務</p>
           </div>
         </div>
