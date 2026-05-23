@@ -143,11 +143,19 @@ export function Navbar() {
                 <span className="text-primary">→</span>
               </Link>
             ))}
+
+            <LineConsultButton
+              onClick={closeMobileMenu}
+              className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
+            >
+              聯絡方式
+              <span className="text-primary">→</span>
+            </LineConsultButton>
           </div>
 
           <LineConsultButton
-            className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]"
             onClick={closeMobileMenu}
+            className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]"
           >
             加入 LINE 免費諮詢
           </LineConsultButton>
