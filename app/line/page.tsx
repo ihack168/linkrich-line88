@@ -49,13 +49,6 @@ export default function LinePage() {
             房東 LINE 免費諮詢
           </h1>
 
-          <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
-            由專人一對一協助您了解
-            社會住宅包租代管、
-            房屋出租管理、
-            租屋補助與房東出租相關流程。
-          </p>
-
           {/* 真人感提示 */}
           <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-4 py-2 text-sm text-primary">
             👋 專人即時回覆・可先免費諮詢
