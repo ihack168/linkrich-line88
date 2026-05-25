@@ -6,7 +6,7 @@ import { createPortal } from "react-dom"
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwFpZDhMveHhdOYdDkh02JpWk28jUCBqikyM-Urg_6Uw2jTH7d8ZluKxinKTWh5_20N/exec"
 
-const LINE_ADD_URL = "https://line.me/R/ti/p/@gwp4644s"
+const LINE_ADD_URL = "https://line.me/R/ti/p/~0910933178"
 
 const VENDOR_ID = "linkrich"
 const VENDOR_NAME = "社會住宅包租代管資訊站"
