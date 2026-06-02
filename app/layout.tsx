@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  verification: {
+    google: 'nU4axksZUmOI-MZr0WLspqPAY4elIf9NNx_zg89tfsM',
+  },
   title: {
   default: '社會住宅包租代管資訊站｜房東安心出租，租客穩定入住',
   template: '%s｜社會住宅包租代管資訊站',
