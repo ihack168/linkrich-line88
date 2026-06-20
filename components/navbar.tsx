@@ -7,6 +7,10 @@ import { LineConsultButton } from "@/components/line-consult-button"
 
 const navLinks = [
   { label: "首頁", href: "/" },
+  { label: "房東補助", href: "/landlord-subsidies" },
+  { label: "公益出租人", href: "/public-landlord" },
+  { label: "房東節稅", href: "/landlord-tax" },
+  { label: "包租代管", href: "/property-management" },
   { label: "最新文章", href: "/blog" },
 ]
 
@@ -79,9 +83,9 @@ export function Navbar() {
                 社會住宅包租代管資訊站
               </span>
 
-              <span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
-                RENTAL MANAGEMENT SERVICE
-              </span>
+<span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
+  租屋補助｜公益出租人｜包租代管
+</span>
             </div>
           </Link>
 
