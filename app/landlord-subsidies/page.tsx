@@ -6,6 +6,18 @@ import { Footer } from "@/components/footer";
 import { LineConsultButton } from "@/components/line-consult-button";
 
 export default function LandlordSubsidiesPage() {
+  const subsidyTags = [
+    "租屋補助申請",
+    "租屋補助資格",
+    "青年租屋補助",
+    "房屋修繕補助",
+    "老屋修繕補助",
+    "社會住宅補助",
+    "房東補助",
+    "公益出租人",
+    "房東節稅",
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -22,9 +34,8 @@ export default function LandlordSubsidiesPage() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-muted-foreground">
-            房東出租房屋後，除了租金收入之外，
-            還有機會申請租屋補助、公益出租人優惠、
-            社會住宅房東補助與房屋修繕補助等政府資源。
+            房東出租房屋後，除了租金收入之外，還有機會申請租屋補助、
+            公益出租人優惠、社會住宅房東補助與房屋修繕補助等政府資源。
             本頁整理房東最常見的補助資訊與申請方向。
           </p>
         </section>
@@ -32,61 +43,23 @@ export default function LandlordSubsidiesPage() {
         {/* 補助分類 */}
         <section className="mx-auto mt-16 max-w-6xl px-6">
           <h2 className="text-center text-2xl font-black">
-            房東常見補助項目
+            房東補助熱門主題
           </h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <Link
-              href="/blog/rental-subsidy"
-              className="rounded-3xl border border-border bg-white p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                租屋補助
-              </h3>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {subsidyTags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/blog?tag=${encodeURIComponent(tag)}`}
+                className="rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-1"
+              >
+                <h3 className="text-lg font-bold">{tag}</h3>
 
-              <p className="mt-3 leading-7 text-muted-foreground">
-                了解租屋補助資格、申請方式與最新補助規定。
-              </p>
-            </Link>
-
-            <Link
-              href="/blog/youth-rental-subsidy"
-              className="rounded-3xl border border-border bg-white p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                青年租屋補助
-              </h3>
-
-              <p className="mt-3 leading-7 text-muted-foreground">
-                青年租屋補助申請條件、補助金額與常見問題整理。
-              </p>
-            </Link>
-
-            <Link
-              href="/blog/house-repair-subsidy"
-              className="rounded-3xl border border-border bg-white p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                房屋修繕補助
-              </h3>
-
-              <p className="mt-3 leading-7 text-muted-foreground">
-                房東申請修繕補助的資格與流程說明。
-              </p>
-            </Link>
-
-            <Link
-              href="/blog/social-housing-subsidy"
-              className="rounded-3xl border border-border bg-white p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                社會住宅補助
-              </h3>
-
-              <p className="mt-3 leading-7 text-muted-foreground">
-                社會住宅包租代管房東可獲得哪些補助與優惠。
-              </p>
-            </Link>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  查看所有「{tag}」相關文章
+                </p>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -103,10 +76,16 @@ export default function LandlordSubsidiesPage() {
               </h3>
 
               <p className="mt-3 leading-7 text-muted-foreground">
-                常見包含公益出租人優惠、
-                房屋修繕補助、
+                常見包含公益出租人優惠、房屋修繕補助、
                 社會住宅房東補助與相關租稅優惠。
               </p>
+
+              <Link
+                href="/blog?tag=房東補助"
+                className="mt-3 inline-block font-semibold text-primary"
+              >
+                查看相關文章 →
+              </Link>
             </div>
 
             <div className="rounded-2xl border border-border p-6">
@@ -115,9 +94,15 @@ export default function LandlordSubsidiesPage() {
               </h3>
 
               <p className="mt-3 leading-7 text-muted-foreground">
-                可透過公益出租人資格、
-                合法申報與相關稅務規定進行節稅規劃。
+                可透過公益出租人資格、合法申報與相關稅務規定進行節稅規劃。
               </p>
+
+              <Link
+                href="/blog?tag=房東節稅"
+                className="mt-3 inline-block font-semibold text-primary"
+              >
+                查看相關文章 →
+              </Link>
             </div>
 
             <div className="rounded-2xl border border-border p-6">
@@ -128,6 +113,13 @@ export default function LandlordSubsidiesPage() {
               <p className="mt-3 leading-7 text-muted-foreground">
                 符合資格的房東可享有政府提供的相關補助與稅務優惠。
               </p>
+
+              <Link
+                href="/blog?tag=社會住宅補助"
+                className="mt-3 inline-block font-semibold text-primary"
+              >
+                查看相關文章 →
+              </Link>
             </div>
           </div>
         </section>
@@ -139,8 +131,7 @@ export default function LandlordSubsidiesPage() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl leading-8 text-muted-foreground">
-            歡迎加入 LINE 免費諮詢，
-            協助了解房屋是否適合申請補助、
+            歡迎加入 LINE 免費諮詢，協助了解房屋是否適合申請補助、
             公益出租人或加入包租代管方案。
           </p>
 

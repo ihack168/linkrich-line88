@@ -6,6 +6,18 @@ import { Footer } from "@/components/footer";
 import { LineConsultButton } from "@/components/line-consult-button";
 
 export default function LandlordTaxPage() {
+  const taxTags = [
+    "房東節稅",
+    "出租所得稅",
+    "房東報稅",
+    "出租房屋節稅",
+    "房東如何節稅",
+    "出租房子要繳稅嗎",
+    "出租所得申報",
+    "租金收入報稅",
+    "公益出租人減稅",
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -18,65 +30,39 @@ export default function LandlordTaxPage() {
           </p>
 
           <h1 className="mt-3 text-3xl font-black md:text-5xl">
-            房東稅務懶人包
+            房東節稅與報稅懶人包
           </h1>
 
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-muted-foreground">
-            房東出租房屋後，租金收入需要依法申報所得稅，
-            同時也能透過合法列舉成本、必要費用、
-            公益出租人優惠及相關稅務規定進行節稅規劃。
-            本頁整理房東最關心的稅務問題與報稅重點。
+            房東出租房屋後，租金收入需依法申報所得稅，
+            但也能透過合法費用列舉、公益出租人優惠、
+            社會住宅包租代管與相關稅務規定進行節稅規劃。
+            本頁整理房東最常搜尋的稅務問題與節稅資訊。
           </p>
         </section>
 
-        {/* 稅務分類 */}
+        {/* 主題分類 */}
         <section className="mx-auto mt-16 max-w-6xl px-6">
           <h2 className="text-center text-2xl font-black">
-            房東稅務重點整理
+            房東節稅熱門主題
           </h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <Link
-              href="/blog/rental-income-tax"
-              className="rounded-3xl border border-border bg-card p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                出租所得稅
-              </h3>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {taxTags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/blog?tag=${encodeURIComponent(tag)}`}
+                className="rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-1"
+              >
+                <h3 className="text-lg font-bold">
+                  {tag}
+                </h3>
 
-              <p className="mt-3 leading-7 text-muted-foreground">
-                了解房租收入如何計算所得稅、
-                必要費用扣除方式與常見申報規定。
-              </p>
-            </Link>
-
-            <Link
-              href="/blog/landlord-tax-filing"
-              className="rounded-3xl border border-border bg-card p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                房東報稅
-              </h3>
-
-              <p className="mt-3 leading-7 text-muted-foreground">
-                房東報稅流程、申報資料準備、
-                常見錯誤與注意事項一次整理。
-              </p>
-            </Link>
-
-            <Link
-              href="/blog/landlord-tax-saving"
-              className="rounded-3xl border border-border bg-card p-8 shadow-sm transition hover:-translate-y-1"
-            >
-              <h3 className="text-xl font-bold">
-                節稅攻略
-              </h3>
-
-              <p className="mt-3 leading-7 text-muted-foreground">
-                善用合法節稅方式、
-                必要費用扣除與租稅優惠降低稅務負擔。
-              </p>
-            </Link>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  查看所有「{tag}」相關文章
+                </p>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -93,9 +79,16 @@ export default function LandlordTaxPage() {
               </h3>
 
               <p className="mt-3 leading-7 text-muted-foreground">
-                是，房租收入屬於所得稅法規定的租賃所得，
+                是，租金收入屬於租賃所得，
                 應依法申報綜合所得稅。
               </p>
+
+              <Link
+                href="/blog?tag=房東報稅"
+                className="mt-3 inline-block font-semibold text-primary"
+              >
+                查看相關文章 →
+              </Link>
             </div>
 
             <div className="rounded-2xl border border-border p-6">
@@ -105,13 +98,20 @@ export default function LandlordTaxPage() {
 
               <p className="mt-3 leading-7 text-muted-foreground">
                 可依規定扣除必要費用、
-                修繕支出、折舊或採用標準費用率計算。
+                修繕支出、折舊或採標準費用率申報。
               </p>
+
+              <Link
+                href="/blog?tag=出租所得稅"
+                className="mt-3 inline-block font-semibold text-primary"
+              >
+                查看相關文章 →
+              </Link>
             </div>
 
             <div className="rounded-2xl border border-border p-6">
               <h3 className="font-bold">
-                如何合法節稅？
+                房東如何合法節稅？
               </h3>
 
               <p className="mt-3 leading-7 text-muted-foreground">
@@ -119,6 +119,13 @@ export default function LandlordTaxPage() {
                 社會住宅包租代管方案及合法費用列舉，
                 降低實際課稅所得。
               </p>
+
+              <Link
+                href="/blog?tag=房東節稅"
+                className="mt-3 inline-block font-semibold text-primary"
+              >
+                查看相關文章 →
+              </Link>
             </div>
           </div>
         </section>
