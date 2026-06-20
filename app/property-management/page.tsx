@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LineConsultButton } from "@/components/line-consult-button";
@@ -22,133 +23,98 @@ export default function PropertyManagementPage() {
 
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-muted-foreground">
             提供專業包租代管服務，協助房東處理招租、租客管理、
-            租金收取與房屋維護。同時協助評估是否符合公益出租人、
-            社會住宅包租代管及相關房東補助資格，讓出租更省心、更穩定。
+            租金收取與房屋維護，並整合租屋補助與稅務規劃資訊。
           </p>
         </section>
 
-        {/* 服務介紹 */}
+        {/* TAG 導流區（SEO核心） */}
         <section className="mx-auto mt-16 max-w-6xl px-6">
+          <h2 className="text-center text-2xl font-black">
+            相關主題文章
+          </h2>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+            <Link href="/blog?tag=包租代管服務" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">包租代管服務</h3>
+              <p className="mt-2 text-sm text-muted-foreground">了解完整包租代管流程與服務內容</p>
+            </Link>
+
+            <Link href="/blog?tag=包租代管流程" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">包租代管流程</h3>
+              <p className="mt-2 text-sm text-muted-foreground">從委託到出租完整流程解析</p>
+            </Link>
+
+            <Link href="/blog?tag=包租代管費用" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">包租代管費用</h3>
+              <p className="mt-2 text-sm text-muted-foreground">費用計算方式與收費標準</p>
+            </Link>
+
+            <Link href="/blog?tag=包租代管優缺點" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">包租代管優缺點</h3>
+              <p className="mt-2 text-sm text-muted-foreground">適合誰？優勢與風險分析</p>
+            </Link>
+
+            <Link href="/blog?tag=包租代管房東收益" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">房東收益分析</h3>
+              <p className="mt-2 text-sm text-muted-foreground">包租代管 vs 自租收益比較</p>
+            </Link>
+
+            <Link href="/blog?tag=社會住宅包租代管" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">社會住宅包租代管</h3>
+              <p className="mt-2 text-sm text-muted-foreground">政府社宅方案與申請條件</p>
+            </Link>
+
+            <Link href="/blog?tag=公益出租人" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">公益出租人</h3>
+              <p className="mt-2 text-sm text-muted-foreground">稅務優惠與申請方式</p>
+            </Link>
+
+            <Link href="/blog?tag=房東節稅" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">房東節稅</h3>
+              <p className="mt-2 text-sm text-muted-foreground">合法節稅與報稅技巧</p>
+            </Link>
+
+            <Link href="/blog?tag=租屋補助" className="rounded-2xl border bg-white p-6 shadow-sm hover:-translate-y-1 transition">
+              <h3 className="font-bold">租屋補助</h3>
+              <p className="mt-2 text-sm text-muted-foreground">租屋補助與房東影響</p>
+            </Link>
+
+          </div>
+        </section>
+
+        {/* 服務介紹 */}
+        <section className="mx-auto mt-20 max-w-6xl px-6">
           <h2 className="text-center text-2xl font-black">
             包租代管服務內容
           </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
+            <div className="rounded-3xl border bg-white p-8 shadow-sm">
               <h3 className="text-xl font-bold">招租與租客篩選</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                協助刊登房源、安排帶看、租客資格審核與租賃媒合，
-                提升出租效率並降低空置期。
+              <p className="mt-3 text-muted-foreground">
+                協助刊登房源、帶看與租客審核。
               </p>
             </div>
 
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
+            <div className="rounded-3xl border bg-white p-8 shadow-sm">
               <h3 className="text-xl font-bold">租約與收租管理</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                協助簽約、租金收取、租賃管理與續約安排，
-                減少房東日常管理負擔。
+              <p className="mt-3 text-muted-foreground">
+                租金收取、合約管理與續約安排。
               </p>
             </div>
 
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
-              <h3 className="text-xl font-bold">房屋維護服務</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                協助處理設備報修、房屋維護與租客溝通，
-                提供完整後續管理服務。
+            <div className="rounded-3xl border bg-white p-8 shadow-sm">
+              <h3 className="text-xl font-bold">房屋維護</h3>
+              <p className="mt-3 text-muted-foreground">
+                報修處理與租客溝通。
               </p>
             </div>
 
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
+            <div className="rounded-3xl border bg-white p-8 shadow-sm">
               <h3 className="text-xl font-bold">補助與稅務評估</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                協助評估公益出租人、房東補助、租屋補助、
-                房屋修繕補助與節稅規劃，提升收益與合法節稅空間。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 收費方式 */}
-        <section className="mx-auto mt-20 max-w-5xl px-6">
-          <h2 className="text-center text-2xl font-black">
-            收費方式說明
-          </h2>
-
-          <div className="mt-10 rounded-3xl border border-border bg-white p-8 shadow-sm">
-            <p className="leading-8 text-muted-foreground">
-              收費依房屋類型、地區與委託管理內容而定。
-              一般包含招租服務費、代管服務費或包租方案費用。
-              實際方案將由專人評估後提供報價，
-              協助房東找到最適合的出租管理方式。
-            </p>
-          </div>
-        </section>
-
-        {/* 成功案例 */}
-        <section className="mx-auto mt-20 max-w-6xl px-6">
-          <h2 className="text-center text-2xl font-black">
-            成功案例
-          </h2>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
-              <h3 className="font-bold">新北市公寓出租</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                空置兩個月的房屋於兩週內完成出租，
-                並協助申請公益出租人資格。
-              </p>
-            </div>
-
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
-              <h3 className="font-bold">台北市套房管理</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                協助租客管理與收租作業，
-                大幅減少房東管理時間與糾紛。
-              </p>
-            </div>
-
-            <div className="rounded-3xl border border-border bg-white p-8 shadow-sm">
-              <h3 className="font-bold">社宅包租代管</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                成功加入社會住宅包租代管方案，
-                取得房東補助與稅務優惠。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="mx-auto mt-20 max-w-4xl px-6">
-          <h2 className="text-center text-2xl font-black">
-            常見問題
-          </h2>
-
-          <div className="mt-10 space-y-6">
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <h3 className="font-bold">包租代管適合哪些房東？</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                適合無時間管理房屋、長期出租或希望降低空置風險的房東。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <h3 className="font-bold">可以同時申請房東補助嗎？</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                視個案條件而定，部分可搭配公益出租人與社宅方案。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <h3 className="font-bold">包租代管能協助節稅嗎？</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                可協助評估公益出租人資格與合法節稅規劃方向。
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <h3 className="font-bold">如何開始委託管理？</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                提供房屋資訊後即可安排評估與規劃方案。
+              <p className="mt-3 text-muted-foreground">
+                協助申請補助與節稅規劃。
               </p>
             </div>
           </div>
@@ -157,16 +123,14 @@ export default function PropertyManagementPage() {
         {/* CTA */}
         <section className="mx-auto mt-20 mb-24 max-w-4xl px-6 text-center">
           <h2 className="text-3xl font-black">
-            想了解包租代管是否適合您的房屋？
+            想了解包租代管是否適合你的房屋？
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl leading-8 text-muted-foreground">
-            歡迎加入 LINE 免費諮詢，
-            協助評估出租規劃、房東補助資格、
-            公益出租人與節稅方案。
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            可透過 LINE 免費諮詢，協助評估最適合的出租方案。
           </p>
 
-          <LineConsultButton className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
+          <LineConsultButton className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground">
             加入 LINE 免費諮詢
           </LineConsultButton>
         </section>
