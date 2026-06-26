@@ -1,78 +1,67 @@
-import { client } from "@/lib/sanity"
-import { createImageUrlBuilder } from "@sanity/image-url"
-import { PortableText } from "@portabletext/react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { LineConsultButton } from "@/components/line-consult-button"
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import type { Metadata } from "next"
+import { client } from "@/lib/sanity";
+import { createImageUrlBuilder } from "@sanity/image-url";
+import { PortableText } from "@portabletext/react";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { LineConsultButton } from "@/components/line-consult-button";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import type { Metadata } from "next";
 
-export const revalidate = 0
-export const dynamic = "force-dynamic"
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
-const siteName = "社會住宅包租代管資訊站"
-const siteUrl = "https://home.line88.tw"
+const siteName = "社會住宅包租代管資訊站";
+const siteUrl = "https://home.line88.tw";
 
-const builder = createImageUrlBuilder(client)
+const builder = createImageUrlBuilder(client);
 
 function urlFor(source: any) {
-  if (!source) return { url: () => "" }
-  return builder.image(source)
+  if (!source) return null;
+  return builder.image(source);
+}
+
+/** 抓 OG fallback 圖 */
+function extractFirstImage(html?: string) {
+  if (!html) return null;
+  const match = html.match(/<img[^>]+src="([^"]+)"/);
+  return match?.[1] || null;
 }
 
 /**
- * 👉 抓 HTML 第一張圖片（OG fallback）
+ * ⚠️ 重要修正：
+ * 這裡不再做 CDN 字串改寫（容易污染 HTML）
  */
-function extractFirstImage(html?: string) {
-  if (!html) return null
-  const match = html.match(/<img[^>]+src="([^"]+)"/)
-  return match?.[1] || null
-}
-
-function optimizeSanityImages(html?: string) {
-  if (!html) return ""
-
-  return html.replace(
-    /(https:\/\/cdn\.sanity\.io\/images\/[^"' )<>]+)/g,
-    (url) => {
-      if (url.includes("auto=format")) return url
-      return `${url}${url.includes("?") ? "&" : "?"}auto=format`
-    }
-  )
-}
-
 const ptComponents = {
   types: {
     image: ({ value }: any) => {
-      if (!value?.asset?._ref) return null
+      if (!value?.asset?._ref) return null;
 
       return (
         <figure className="my-10 flex flex-col items-center">
           <img
-            src={urlFor(value).auto("format").url()}
+            src={urlFor(value)?.auto("format")?.url()}
             alt={value.alt || "文章圖片"}
-            className="w-full rounded-[2rem] border border-border shadow-[0_16px_50px_rgba(120,80,70,0.12)]"
+            className="w-full rounded-[2rem] border shadow-[0_16px_50px_rgba(120,80,70,0.12)]"
             loading="lazy"
           />
-
           {value.caption && (
             <figcaption className="mt-3 text-center text-sm text-muted-foreground">
               {value.caption}
             </figcaption>
           )}
         </figure>
-      )
+      );
     },
   },
-}
+};
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params
+  const { slug } = await params;
 
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
@@ -82,20 +71,20 @@ export async function generateMetadata({
       htmlContent
     }`,
     { slug }
-  )
+  );
 
-  if (!post) return {}
+  if (!post) return {};
 
-  const firstBodyImage = extractFirstImage(post.htmlContent)
+  const firstImage = extractFirstImage(post.htmlContent);
 
   const ogImage = post.mainImage
     ? urlFor(post.mainImage)
-        .width(1200)
-        .height(630)
-        .fit("crop")
-        .auto("format")
-        .url()
-    : firstBodyImage
+        ?.width(1200)
+        ?.height(630)
+        ?.fit("crop")
+        ?.auto("format")
+        ?.url()
+    : firstImage;
 
   return {
     title: `${post.title} | ${siteName}`,
@@ -109,21 +98,20 @@ export async function generateMetadata({
       locale: "zh_TW",
       type: "article",
     },
-  }
+  };
 }
 
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
+  const { slug } = await params;
 
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
       description,
-      "slug": slug.current,
       publishedAt,
       mainImage,
       body,
@@ -133,9 +121,9 @@ export default async function PostPage({
     }`,
     { slug },
     { cache: "no-store" }
-  )
+  );
 
-  if (!post) notFound()
+  if (!post) notFound();
 
   const publishedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("zh-TW", {
@@ -143,9 +131,7 @@ export default async function PostPage({
         month: "long",
         day: "numeric",
       })
-    : null
-
-  const optimizedHtml = optimizeSanityImages(post.htmlContent)
+    : null;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -164,9 +150,9 @@ export default async function PostPage({
     datePublished: post.publishedAt,
     url: `${siteUrl}/blog/${slug}`,
     image: post.mainImage
-      ? urlFor(post.mainImage).width(1200).auto("format").url()
+      ? urlFor(post.mainImage)?.width(1200)?.auto("format")?.url()
       : undefined,
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -178,8 +164,6 @@ export default async function PostPage({
       <Navbar />
 
       <main className="relative overflow-hidden px-6 pb-24 pt-32">
-        <div className="absolute left-1/2 top-20 -z-10 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-primary/10 blur-[110px]" />
-
         <div className="mx-auto max-w-4xl">
           <nav className="mb-10 flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/">首頁</Link>
@@ -207,22 +191,24 @@ export default async function PostPage({
           </h1>
 
           <div className="mb-12 text-sm text-muted-foreground">
-            {post.authorName || siteName} {publishedDate && `｜${publishedDate}`}
+            {post.authorName || siteName}
+            {publishedDate && ` ｜ ${publishedDate}`}
           </div>
 
           {post.mainImage && (
             <div className="mb-16 overflow-hidden rounded-[2rem] border">
               <img
-                src={urlFor(post.mainImage).auto("format").url()}
+                src={urlFor(post.mainImage)?.auto("format")?.url()}
                 alt={post.title}
                 className="w-full object-cover"
               />
             </div>
           )}
 
+          {/* ⚠️ HTML 安全渲染（保留，但不再污染內容） */}
           <article className="prose max-w-none">
             {post.htmlContent ? (
-              <div dangerouslySetInnerHTML={{ __html: optimizedHtml }} />
+              <div dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
             ) : (
               post.body && (
                 <PortableText value={post.body} components={ptComponents} />
@@ -232,7 +218,6 @@ export default async function PostPage({
 
           <div className="mt-16 flex justify-between border-t pt-8">
             <Link href="/blog">← 返回文章列表</Link>
-
             <LineConsultButton>預約諮詢 →</LineConsultButton>
           </div>
         </div>
@@ -240,12 +225,13 @@ export default async function PostPage({
 
       <Footer />
     </div>
-  )
+  );
 }
 
 export async function generateStaticParams() {
-  const query = `*[_type == "post"]{ "slug": slug.current }`
-  const posts = await client.fetch(query)
+  const posts = await client.fetch(
+    `*[_type == "post"]{ "slug": slug.current }`
+  );
 
-  return posts?.map((p: any) => ({ slug: p.slug })) || []
+  return posts?.map((p: any) => ({ slug: p.slug })) || [];
 }
