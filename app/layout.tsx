@@ -99,6 +99,7 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant" className={`${notoSansTC.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground">
+        <Navbar />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
           strategy="afterInteractive"
