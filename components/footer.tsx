@@ -32,7 +32,7 @@ export function Footer() {
             最新文章
           </a>
 
-          <a href="/#contact" className="transition-colors hover:text-primary">
+          <a href="/line" className="transition-colors hover:text-primary">
             聯絡諮詢
           </a>
         </div>
