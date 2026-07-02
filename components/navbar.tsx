@@ -136,7 +136,7 @@ export function Navbar() {
             </div>
           </button>
 
-          <div className="mb-8">
+          <div className="mb-8 shrink-0">
             <p className="text-sm tracking-[0.24em] text-muted-foreground">
               RENTAL MANAGEMENT
             </p>
@@ -146,38 +146,41 @@ export function Navbar() {
             </p>
           </div>
 
-          <div className="flex w-full flex-col">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={closeMobileMenu}
-                className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
-              >
-                {link.label}
+          {/* 可滾動區塊：min-h-0 讓 flex 子項目能正確收縮，overflow-y-auto 才滑得動 */}
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pb-8">
+            <div className="flex w-full flex-col">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMobileMenu}
+                  className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
+                >
+                  {link.label}
 
-                <span className="text-primary">→</span>
-              </Link>
-            ))}
+                  <span className="text-primary">→</span>
+                </Link>
+              ))}
 
-            {/* 手機版聯絡方式 */}
-            <LineConsultButton className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary">
-              <>
-                聯絡方式
-                <span className="text-primary">→</span>
-              </>
+              {/* 手機版聯絡方式 */}
+              <LineConsultButton className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary">
+                <>
+                  聯絡方式
+                  <span className="text-primary">→</span>
+                </>
+              </LineConsultButton>
+            </div>
+
+            {/* 手機版 CTA */}
+            <LineConsultButton className="mt-8 flex h-14 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
+              加入 LINE 免費諮詢
             </LineConsultButton>
-          </div>
 
-          {/* 手機版 CTA */}
-          <LineConsultButton className="mt-8 flex h-14 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
-            加入 LINE 免費諮詢
-          </LineConsultButton>
+            <div className="mt-8 text-sm leading-7 text-muted-foreground">
+              <p>房東安心出租｜租客穩定入住｜專業租務管理</p>
 
-          <div className="mt-auto pb-8 text-sm leading-7 text-muted-foreground">
-            <p>房東安心出租｜租客穩定入住｜專業租務管理</p>
-
-            <p>社會住宅包租代管與租屋補助諮詢服務</p>
+              <p>社會住宅包租代管與租屋補助諮詢服務</p>
+            </div>
           </div>
         </div>
       )}
