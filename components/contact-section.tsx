@@ -12,7 +12,7 @@ const contacts = [
     label: "LINE 免費諮詢",
     description:
       "加入 LINE 詢問社會住宅包租代管、出租管理與租屋補助相關問題。",
-    href: "https://line.me/R/ti/p/@你的LINEID",
+    href: "https://line.me/R/ti/p/0910933178",
     icon: <MessageCircle size={28} />,
   },
   {

@@ -172,7 +172,7 @@ export function Navbar() {
             </div>
 
             {/* 手機版 CTA */}
-            <LineConsultButton className="mt-8 flex h-14 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
+            <LineConsultButton className="mt-8 flex h-14 shrink-0 items-center justify-center rounded-full bg-[#06C755] text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
               加入 LINE 免費諮詢
             </LineConsultButton>
 

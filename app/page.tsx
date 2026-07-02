@@ -121,7 +121,7 @@ export default function Home() {
             </div>
           </div>
 
-          <LineConsultButton className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)] transition-all hover:-translate-y-0.5">
+          <LineConsultButton className="mt-8 inline-flex rounded-full bg-[#06C755] px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)] transition-all hover:-translate-y-0.5">
             加入 LINE 免費諮詢
           </LineConsultButton>
         </section>

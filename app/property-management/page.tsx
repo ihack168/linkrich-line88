@@ -130,7 +130,7 @@ export default function PropertyManagementPage() {
             可透過 LINE 免費諮詢，協助評估最適合的出租方案。
           </p>
 
-          <LineConsultButton className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground">
+          <LineConsultButton className="mt-8 inline-flex rounded-full bg-[#06C755] px-8 py-4 text-sm font-semibold text-primary-foreground">
             加入 LINE 免費諮詢
           </LineConsultButton>
         </section>
