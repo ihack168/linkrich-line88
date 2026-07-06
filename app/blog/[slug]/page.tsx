@@ -1,7 +1,6 @@
 import { client } from "@/lib/sanity";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import { PortableText } from "@portabletext/react";
-import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ShareBar } from "@/components/share-bar";
 import { LineConsultButton } from "@/components/line-consult-button";
@@ -71,7 +70,8 @@ export async function generateMetadata({
       mainImage,
       htmlContent
     }`,
-    { slug }
+    { slug },
+    { cache: "no-store" }
   );
 
   if (!post) return {};
@@ -90,6 +90,9 @@ export async function generateMetadata({
   return {
     title: `${post.title} | ${siteName}`,
     description: post.description || post.title,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description || post.title,
@@ -98,6 +101,12 @@ export async function generateMetadata({
       images: ogImage ? [{ url: ogImage }] : [],
       locale: "zh_TW",
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description || post.title,
+      images: ogImage ? [ogImage] : [],
     },
   };
 }
@@ -134,6 +143,8 @@ export default async function PostPage({
       })
     : null;
 
+  const articleUrl = `${siteUrl}/blog/${slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -149,7 +160,7 @@ export default async function PostPage({
       url: siteUrl,
     },
     datePublished: post.publishedAt,
-    url: `${siteUrl}/blog/${slug}`,
+    url: articleUrl,
     image: post.mainImage
       ? urlFor(post.mainImage)?.width(1200)?.auto("format")?.url()
       : undefined,
@@ -161,8 +172,6 @@ export default async function PostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      <Navbar />
 
       <main className="relative overflow-hidden px-6 pb-24 pt-32">
         <div className="mx-auto max-w-4xl">
@@ -236,7 +245,9 @@ export default async function PostPage({
 
 export async function generateStaticParams() {
   const posts = await client.fetch(
-    `*[_type == "post"]{ "slug": slug.current }`
+    `*[_type == "post"]{ "slug": slug.current }`,
+    {},
+    { cache: "no-store" }
   );
 
   return posts?.map((p: any) => ({ slug: p.slug })) || [];
