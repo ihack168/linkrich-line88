@@ -44,9 +44,9 @@ export const metadata: Metadata = {
 
   metadataBase: new URL(siteUrl),
 
-  alternates: {
-    canonical: siteUrl,
-  },
+alternates: {
+  canonical: '/',
+},
 
   icons: {
     icon: '/images/logo.png',
