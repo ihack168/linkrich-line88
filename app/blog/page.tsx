@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { client } from "@/lib/sanity"
-import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 
@@ -214,8 +213,6 @@ function BlogPageContent() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-
       <main className="relative overflow-hidden px-6 pb-24 pt-32">
         <div className="absolute left-1/2 top-20 -z-10 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-primary/10 blur-[110px]" />
         <div className="absolute right-0 top-80 -z-10 h-[260px] w-[260px] rounded-full bg-accent/10 blur-[100px]" />
@@ -224,7 +221,7 @@ function BlogPageContent() {
           <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <header>
               <p className="mb-3 text-sm font-medium tracking-[0.2em] text-primary">
-                BEAUTY JOURNAL
+                SOCIAL HOUSING JOURNAL
               </p>
 
               <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-6xl">
@@ -233,7 +230,7 @@ function BlogPageContent() {
 
               <p className="mt-4 text-muted-foreground">
                 {selectedTag === "全部"
-                  ? "醫美療程、肌膚保養與術後照護知識"
+                  ? "社會住宅包租代管、房東補助、公益出租人與租屋管理知識"
                   : `目前分類：${selectedTag}`}
               </p>
             </header>
@@ -384,7 +381,7 @@ function BlogPageContent() {
                   </p>
 
                   <p className="mt-3 text-sm text-muted-foreground">
-                    之後會陸續分享醫美療程、保養與術後照護內容。
+                    之後會陸續分享社會住宅包租代管、房東補助、公益出租人與租屋管理知識。
                   </p>
 
                   {selectedTag !== "全部" && (
