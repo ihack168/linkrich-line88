@@ -16,9 +16,9 @@ export function Footer() {
           </h3>
 
           <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
-            提供社會住宅包租代管、 房屋出租管理、
-            租客媒合與租屋補助相關諮詢服務，
-            協助房東安心出租、穩定管理。
+            提供社會住宅包租代管、房屋出租管理、
+            租客媒合、租屋補助與房東出租相關資訊整理，
+            協助房東快速了解出租管理與政府方案方向。
           </p>
         </div>
 
@@ -53,8 +53,19 @@ export function Footer() {
         </div>
       </div>
 
+      {/* 免責聲明 */}
+      <div className="relative mx-auto mt-10 max-w-6xl rounded-2xl border border-border/60 bg-muted/30 px-5 py-4 text-center">
+        <p className="text-xs leading-6 text-muted-foreground">
+          免責聲明：本網站部分內容可能由 AI 協助整理，並經人工審閱後發布。
+          網站內容僅供一般資訊參考，不構成法律、不動產、租賃、稅務、補助申請或其他專業建議。
+          社會住宅包租代管、租屋補助、房東資格、租賃契約、稅務優惠與相關申請規定，
+          可能因縣市政府、主管機關、個案條件或政策更新而有所不同。
+          實際內容請以內政部、地方政府、住宅主管機關、專業人員或官方公告之最新資訊為準。
+        </p>
+      </div>
+
       {/* 底部 */}
-      <div className="relative mx-auto mt-10 max-w-6xl border-t border-border/60 pt-6 text-center">
+      <div className="relative mx-auto mt-6 max-w-6xl border-t border-border/60 pt-6 text-center">
         <p className="text-xs tracking-wide text-muted-foreground">
           © 2026 凌群不動產. All rights reserved.
         </p>
