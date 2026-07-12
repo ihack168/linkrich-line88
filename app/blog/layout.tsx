@@ -7,10 +7,10 @@ export const metadata: Metadata = {
     canonical: '/blog',
   },
   openGraph: {
-    title: '最新文章｜社會住宅包租代管資訊站',
+    title: '最新文章｜台灣社會住宅包租代管資訊站',
     description: '社會住宅包租代管相關文章、房東出租管理、租屋補助與包租代管知識整理。',
     url: 'https://home.line88.tw/blog',
-    siteName: '社會住宅包租代管資訊站',
+    siteName: '台灣社會住宅包租代管資訊站',
     locale: 'zh_TW',
     type: 'website',
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '最新文章｜社會住宅包租代管資訊站',
+    title: '最新文章｜台灣社會住宅包租代管資訊站',
     description: '社會住宅包租代管相關文章、房東出租管理、租屋補助與包租代管知識整理。',
     images: ['/images/og-home.jpg'],
   },

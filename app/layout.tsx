@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     google: 'nU4axksZUmOI-MZr0WLspqPAY4elIf9NNx_zg89tfsM',
   },
   title: {
-  default: '社會住宅包租代管資訊站｜房東安心出租，租客穩定入住',
-  template: '%s｜社會住宅包租代管資訊站',
+  default: '台灣社會住宅包租代管資訊站｜房東安心出租，租客穩定入住',
+  template: '%s｜台灣社會住宅包租代管資訊站',
   },
 
   description:
@@ -69,7 +69,7 @@ alternates: {
     description:
       '協助房東了解社會住宅包租代管方案，提供房屋評估、租客媒合、出租管理與後續服務，讓閒置房屋變成穩定收益。',
     url: siteUrl,
-    siteName: '社會住宅包租代管資訊站',
+    siteName: '台灣社會住宅包租代管資訊站',
     locale: 'zh_TW',
     type: 'website',
     images: [

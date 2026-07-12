@@ -12,7 +12,7 @@ export default function Home() {
     "@graph": [
       {
         "@type": "WebSite",
-        name: "社會住宅包租代管資訊站",
+        name: "台灣社會住宅包租代管資訊站",
         url: "https://home.line88.tw",
         description:
           "提供社會住宅包租代管、房東出租、租客媒合、租屋補助與房屋出租管理相關資訊。"
