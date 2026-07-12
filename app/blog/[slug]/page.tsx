@@ -133,9 +133,9 @@ export default async function PostPage({
   if (!post) notFound();
 
   // 清洗內容:去除跟標題/主圖重複的開頭 + 修正殘留的 markdown 粗體星號
-  const cleanedHtml = post.htmlContent
-    ? sanitizePostHtml(post.htmlContent, post.title)
-    : null;
+    const cleanedHtml = post.htmlContent
+  ? sanitizePostHtml(post.htmlContent, post.title, Boolean(post.mainImage))
+  : null;
 
   const publishedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("zh-TW", {
