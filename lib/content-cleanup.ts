@@ -11,7 +11,6 @@ export function stripDuplicateLeadContent(
 
   let result = html.trim();
 
-  // 正規化字串比對用(去空白、標點差異)
   const normalize = (s: string) =>
     s.replace(/\s+/g, "").replace(/[「」『』"'：:，,。.]/g, "");
 
@@ -33,7 +32,6 @@ export function stripDuplicateLeadContent(
   }
 
   // 2) 只有「頁面上方確實有渲染主圖」時,才砍掉內文開頭重複的圖片
-  //    沒有主圖的文章,內文開頭的圖片是需要保留的內容,不能砍
   if (hasMainImage) {
     const figureMatch = result.match(/^\s*<figure[^>]*>[\s\S]*?<\/figure>\s*/i);
     if (figureMatch) {
@@ -55,17 +53,14 @@ export function stripDuplicateLeadContent(
 }
 
 /**
- * 把內文開頭第一個 <h1> 降級成 <h2>
- * 避免頁面上方已經有一個 <h1>{post.title}</h1>,內文又帶一個 <h1>,造成一頁兩個 H1
+ * 把內文中「所有」<h1> 標籤降級成 <h2>,不管出現在內文哪個位置(開頭、被 div 包住、前面有圖片都一樣處理)
+ * 因為頁面上方一定已經渲染過一次 <h1>{post.title}</h1>,內文絕對不該再帶 <h1>
  */
-export function demoteLeadingH1(html: string): string {
+export function demoteAllH1(html: string): string {
   if (!html) return html;
-  const h1Match = html.match(/^\s*<h1([^>]*)>([\s\S]*?)<\/h1>/i);
-  if (!h1Match) return html;
-
-  const [fullMatch, attrs, innerText] = h1Match;
-  const replaced = `<h2${attrs}>${innerText}</h2>`;
-  return html.slice(0, h1Match.index) + replaced + html.slice((h1Match.index || 0) + fullMatch.length);
+  return html
+    .replace(/<h1([^>]*)>/gi, "<h2$1>")
+    .replace(/<\/h1>/gi, "</h2>");
 }
 
 /**
@@ -97,7 +92,7 @@ export function sanitizePostHtml(
 ): string {
   if (!html) return html;
   let result = stripDuplicateLeadContent(html, title, hasMainImage);
-  result = demoteLeadingH1(result);
+  result = demoteAllH1(result);
   result = convertLeftoverMarkdownBold(result);
   return result;
 }
