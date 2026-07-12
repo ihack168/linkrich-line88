@@ -98,8 +98,8 @@ export async function generateMetadata({
 
   const title =
     selectedTag === "全部"
-      ? "最新文章｜台灣社會住宅包租代管資訊站"
-      : `${selectedTag} 相關文章｜台灣社會住宅包租代管資訊站`
+      ? "最新文章"
+      : `${selectedTag} 相關文章`
 
   const description =
     selectedTag === "全部"

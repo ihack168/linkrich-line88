@@ -85,7 +85,7 @@ export async function generateMetadata({
     : firstImage;
 
   return {
-    title: `${post.title} | ${siteName}`,
+    title: post.title,
     description: post.description || post.title,
     alternates: {
       canonical: `/blog/${slug}`,
