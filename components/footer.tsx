@@ -1,75 +1,96 @@
-"use client"
+"use client";
 
-import { LineConsultButton } from "@/components/line-consult-button"
+import Link from "next/link";
+
+import { LineConsultButton } from "@/components/line-consult-button";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border/70 bg-white/80 px-6 py-12 backdrop-blur">
-      {/* 背景光暈 */}
-      <div className="absolute left-1/2 top-0 h-[180px] w-[180px] -translate-x-1/2 rounded-full bg-primary/10 blur-[80px]" />
+    <footer className="border-t border-border/70 bg-background px-6 py-10">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_auto] md:items-start">
+          <div>
+            <Link
+              href="/"
+              aria-label="台灣社會住宅包租代管資訊站首頁"
+              className="inline-flex items-center gap-3"
+            >
+              <img
+                src="/images/logo.png"
+                alt=""
+                width={44}
+                height={44}
+                className="h-11 w-11 rounded-full object-cover"
+              />
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 md:flex-row">
-        {/* 左側品牌 */}
-        <div className="text-center md:text-left">
-          <h3 className="text-xl font-black tracking-tight text-foreground">
-            社會住宅包租代管
-          </h3>
+              <span>
+                <span className="block text-lg font-black tracking-tight text-foreground">
+                  台灣社會住宅包租代管資訊站
+                </span>
 
-          <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
-            提供社會住宅包租代管、房屋出租管理、
-            租客媒合、租屋補助與房東出租相關資訊整理，
-            協助房東快速了解出租管理與政府方案方向。
-          </p>
+                <span className="mt-1 block text-xs text-muted-foreground">
+                  凌群不動產建立並經營
+                </span>
+              </span>
+            </Link>
+
+            <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">
+              整理社會住宅包租代管、公益出租人、房東出租、
+              租屋補助、租客權益與房屋出租管理相關資訊。
+            </p>
+          </div>
+
+          <nav aria-label="網站政策" className="text-sm">
+            <p className="font-bold text-foreground">網站政策</p>
+
+            <div className="mt-3 flex flex-col gap-2 text-muted-foreground">
+              <Link
+                href="/privacy-policy"
+                className="transition-colors hover:text-primary"
+              >
+                隱私權政策
+              </Link>
+
+              <Link
+                href="/terms"
+                className="transition-colors hover:text-primary"
+              >
+                使用條款
+              </Link>
+
+              <Link
+                href="/blog"
+                className="transition-colors hover:text-primary"
+              >
+                最新文章
+              </Link>
+            </div>
+          </nav>
+
+          <div className="md:text-right">
+            <p className="text-sm font-bold text-foreground">
+              房東出租與包租代管諮詢
+            </p>
+
+            <LineConsultButton className="mt-3 inline-flex rounded-full bg-[#06C755] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+              加入 LINE 免費諮詢
+            </LineConsultButton>
+          </div>
         </div>
 
-        {/* 中間導覽 */}
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-          <a href="/" className="transition-colors hover:text-primary">
-            首頁
-          </a>
-
-          <a href="/blog" className="transition-colors hover:text-primary">
-            最新文章
-          </a>
-
-          <a href="/line" className="transition-colors hover:text-primary">
-            聯絡諮詢
-          </a>
-        </div>
-
-        {/* 右側聯絡 */}
-        <div className="text-center md:text-right">
-          <p className="text-sm font-semibold text-foreground">
-            LINE 免費諮詢
+        <div className="mt-8 border-t border-border/70 pt-6">
+          <p className="text-xs leading-6 text-muted-foreground">
+            本站由凌群不動產建立並經營，屬民間資訊網站，並非政府官方網站。
+            網站內容僅供一般資訊參考，不構成法律、稅務、不動產、租賃或補助申請建議；
+            社會住宅包租代管、租屋補助、公益出租人及相關政策資格，
+            請以中央與地方政府最新公告為準。
           </p>
 
-          <LineConsultButton className="mt-2 inline-block text-sm font-medium text-primary transition-opacity hover:opacity-70">
-            加入官方 LINE →
-          </LineConsultButton>
-
-          <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            房東出租｜社會住宅｜包租代管
+          <p className="mt-4 text-xs text-muted-foreground">
+            © 2026 凌群不動產. All rights reserved.
           </p>
         </div>
-      </div>
-
-      {/* 免責聲明 */}
-      <div className="relative mx-auto mt-10 max-w-6xl rounded-2xl border border-border/60 bg-muted/30 px-5 py-4 text-center">
-        <p className="text-xs leading-6 text-muted-foreground">
-          免責聲明：本網站部分內容可能由 AI 協助整理，並經人工審閱後發布。
-          網站內容僅供一般資訊參考，不構成法律、不動產、租賃、稅務、補助申請或其他專業建議。
-          社會住宅包租代管、租屋補助、房東資格、租賃契約、稅務優惠與相關申請規定，
-          可能因縣市政府、主管機關、個案條件或政策更新而有所不同。
-          實際內容請以內政部、地方政府、住宅主管機關、專業人員或官方公告之最新資訊為準。
-        </p>
-      </div>
-
-      {/* 底部 */}
-      <div className="relative mx-auto mt-6 max-w-6xl border-t border-border/60 pt-6 text-center">
-        <p className="text-xs tracking-wide text-muted-foreground">
-          © 2026 凌群不動產. All rights reserved.
-        </p>
       </div>
     </footer>
-  )
+  );
 }
