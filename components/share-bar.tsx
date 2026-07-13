@@ -91,7 +91,7 @@ export function ShareBar({
             !currentUrl ? "pointer-events-none opacity-50" : ""
           }`}
         >
-          Facebook
+          FB
         </a>
 
         <a
