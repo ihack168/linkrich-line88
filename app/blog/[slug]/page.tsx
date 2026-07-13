@@ -9,7 +9,8 @@ import { sanitizePostHtml } from "@/lib/content-cleanup";
 import { Footer } from "@/components/footer";
 import { ShareBar } from "@/components/share-bar";
 
-export const revalidate = 300;
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 const SITE_URL = "https://home.line88.tw";
 const SITE_NAME = "台灣社會住宅包租代管資訊站";
@@ -155,7 +156,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
 
   const post = await client.fetch<Post | null>(
     `*[_type == "post" && slug.current == $slug][0]{
@@ -166,7 +168,7 @@ export async function generateMetadata({
       "updatedAt": _updatedAt
     }`,
     { slug },
-    { next: { revalidate } },
+    { cache: "no-store" },
   );
 
   if (!post) {
@@ -220,7 +222,8 @@ export default async function PostPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
 
   const post = await client.fetch<Post | null>(
     `*[_type == "post" && slug.current == $slug][0]{
@@ -234,7 +237,7 @@ export default async function PostPage({
       "tags": coalesce(categories[]->title, tags)
     }`,
     { slug },
-    { next: { revalidate } },
+    { cache: "no-store" },
   );
 
   if (!post) {
@@ -276,7 +279,7 @@ export default async function PostPage({
       "publishedAt": coalesce(publishedAt, _createdAt)
     }`,
     { slug, tags },
-    { next: { revalidate } },
+    { cache: "no-store" },
   );
 
   const breadcrumbJsonLd = {
@@ -518,18 +521,4 @@ export default async function PostPage({
       <Footer />
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  const posts = await client.fetch<Array<{ slug?: string }>>(
-    `*[_type == "post" && defined(slug.current)]{
-      "slug": slug.current
-    }`,
-    {},
-    { next: { revalidate } },
-  );
-
-  return posts
-    .filter((post) => Boolean(post.slug))
-    .map((post) => ({ slug: post.slug as string }));
 }
