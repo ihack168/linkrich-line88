@@ -1,114 +1,121 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 type ShareBarProps = {
-  /** "light" 給白底網站用；"dark" 是原本的深色版面 */
   variant?: "light" | "dark";
-  /** 聯絡按鈕要導去的路徑，預設 /contact */
-  contactHref?: string;
 };
 
-export function ShareBar({
-  variant = "light",
-  contactHref = "/line",
-}: ShareBarProps) {
+export function ShareBar({ variant = "light" }: ShareBarProps) {
   const [url, setUrl] = useState("");
   const [copied, setCopied] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     setUrl(window.location.href);
   }, []);
 
-  const encodedUrl = encodeURIComponent(url);
   const isDark = variant === "dark";
+  const encodedUrl = encodeURIComponent(url);
 
   const handleCopy = async () => {
+    if (!url) return;
+
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Copy failed:", err);
+
+      window.setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      const textArea = document.createElement("textarea");
+
+      textArea.value = url;
+      textArea.setAttribute("readonly", "");
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+
+      setCopied(true);
+
+      window.setTimeout(() => {
+        setCopied(false);
+      }, 2000);
     }
   };
 
-  // 站內導頁改用 router.push，走 Next.js client-side transition
-  // 而不是 window.location.href 整頁重新載入，切換更快也不會閃白
-  const handleContact = () => {
-    router.push(contactHref);
-  };
-
   return (
-    <div className="fixed bottom-6 left-1/2 z-[9999] -translate-x-1/2">
-      <div
-        className={`flex items-center gap-1 rounded-full border px-2 py-2 shadow-2xl backdrop-blur md:gap-2 md:px-4 md:py-3 ${
-          isDark
-            ? "border-white/10 bg-black/80 text-white"
-            : "border-black/5 bg-white/95 text-gray-900 shadow-black/10"
-        }`}
-      >
-        {/* label */}
-        <span
-          className={`hidden whitespace-nowrap pr-1 text-xs font-bold md:block ${
-            isDark ? "text-gray-400" : "text-gray-500"
+    <section aria-labelledby="share-article-title">
+      <div className="flex flex-wrap items-center gap-3">
+        <h2
+          id="share-article-title"
+          className={`mr-1 text-sm font-bold ${
+            isDark ? "text-white" : "text-foreground"
           }`}
         >
-          分享
-        </span>
+          分享文章
+        </h2>
 
-        {/* FB */}
         <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+          href={
+            url
+              ? `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+              : undefined
+          }
           target="_blank"
           rel="noopener noreferrer"
           aria-label="分享到 Facebook"
-          className="whitespace-nowrap rounded-full bg-blue-600 px-2 py-2 text-[11px] font-bold text-white transition hover:opacity-90 md:px-4 md:text-xs"
+          aria-disabled={!url}
+          className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+            !url ? "pointer-events-none opacity-50" : ""
+          } ${
+            isDark
+              ? "border-white/20 text-white hover:bg-white/10"
+              : "border-border text-foreground hover:border-primary hover:text-primary"
+          }`}
         >
-          FB
+          Facebook
         </a>
 
-        {/* LINE */}
         <a
-          href={`https://social-plugins.line.me/lineit/share?url=${encodedUrl}`}
+          href={
+            url
+              ? `https://social-plugins.line.me/lineit/share?url=${encodedUrl}`
+              : undefined
+          }
           target="_blank"
           rel="noopener noreferrer"
           aria-label="分享到 LINE"
-          className="whitespace-nowrap rounded-full bg-green-500 px-2 py-2 text-[11px] font-bold text-white transition hover:opacity-90 md:px-4 md:text-xs"
+          aria-disabled={!url}
+          className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+            !url ? "pointer-events-none opacity-50" : ""
+          } ${
+            isDark
+              ? "border-white/20 text-white hover:bg-white/10"
+              : "border-border text-foreground hover:border-primary hover:text-primary"
+          }`}
         >
           LINE
         </a>
 
-        {/* COPY */}
         <button
+          type="button"
           onClick={handleCopy}
           disabled={!url}
-          aria-label="複製連結"
-          className={`whitespace-nowrap rounded-full px-2 py-2 text-[11px] font-bold transition disabled:cursor-not-allowed disabled:opacity-50 md:px-4 md:text-xs ${
+          aria-live="polite"
+          className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
             isDark
-              ? "bg-white/10 hover:bg-white/20"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? "border-white/20 text-white hover:bg-white/10"
+              : "border-border text-foreground hover:border-primary hover:text-primary"
           }`}
         >
-          {copied ? "已複製！" : "COPY"}
+          {copied ? "已複製連結" : "複製連結"}
         </button>
-
-        <div
-          className={`mx-1 h-5 w-px ${
-            isDark ? "bg-white/20" : "bg-gray-200"
-          }`}
-        />
-
-        {/* CONTACT */}
-<button
-  onClick={handleContact}
-  className="whitespace-nowrap rounded-full bg-[#06C755] px-2 py-2 text-[11px] font-black text-white transition hover:scale-105 hover:bg-[#00E676] md:px-4 md:text-xs"
->
-  聯絡我 →
-</button>
       </div>
-    </div>
+    </section>
   );
 }

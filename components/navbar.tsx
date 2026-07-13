@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState, useEffect } from "react"
-import { usePathname } from "next/navigation"
-import { LineConsultButton } from "@/components/line-consult-button"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { LineConsultButton } from "@/components/line-consult-button";
 
 const navLinks = [
   { label: "首頁", href: "/" },
@@ -12,178 +13,178 @@ const navLinks = [
   { label: "房東節稅", href: "/landlord-tax" },
   { label: "包租代管", href: "/property-management" },
   { label: "最新文章", href: "/blog" },
-]
+];
+
+function isActivePath(pathname: string, href: string) {
+  if (href === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-
-    window.addEventListener("scroll", handleScroll)
-
-    handleScroll()
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    setMobileOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
-    setMobileOpen(false)
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
 
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "unset"
-    }
-  }, [pathname])
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
-  const toggleMenu = () => {
-    const nextState = !mobileOpen
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
 
-    setMobileOpen(nextState)
+    document.addEventListener("keydown", handleKeyDown);
 
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = nextState ? "hidden" : "unset"
-    }
-  }
-
-  const closeMobileMenu = () => {
-    setMobileOpen(false)
-
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "unset"
-    }
-  }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <>
-      <nav className="fixed left-0 right-0 top-0 z-[50] flex justify-center pointer-events-none">
-        <div
-          className={`
-            pointer-events-auto flex items-center justify-between transition-all duration-500
-            ${
-              scrolled
-                ? "mt-4 h-16 w-[92%] max-w-6xl rounded-full border border-border/70 bg-white/90 px-5 shadow-[0_18px_50px_rgba(31,78,121,0.14)] backdrop-blur-xl md:w-[86%] md:px-7"
-                : "h-20 w-full border-b border-border/60 bg-white/80 px-5 backdrop-blur-xl md:px-10"
-            }
-          `}
-        >
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
           <Link
             href="/"
-            className="relative z-[60] flex items-center gap-3"
+            aria-label="台灣社會住宅包租代管資訊站首頁"
+            className="flex min-w-0 items-center gap-3"
           >
             <img
               src="/images/logo.png"
-              alt="台灣社會住宅包租代管資訊站 Logo"
-              className="h-10 w-10 rounded-full border border-primary/20 bg-white object-cover shadow-sm"
+              alt=""
+              width={40}
+              height={40}
+              className="h-10 w-10 shrink-0 rounded-full object-cover"
             />
 
-            <div className="leading-tight">
-              <span className="block text-base font-black tracking-tight text-foreground md:text-xl">
+            <span className="min-w-0">
+              <span className="block truncate text-base font-black tracking-tight text-foreground md:text-lg">
                 台灣社會住宅包租代管資訊站
               </span>
 
-<span className="hidden text-xs tracking-[0.18em] text-muted-foreground md:block">
-  租屋補助｜公益出租人｜包租代管
-</span>
-            </div>
+              <span className="hidden text-xs text-muted-foreground lg:block">
+                凌群不動產建立並經營
+              </span>
+            </span>
           </Link>
 
-          {/* 電腦版 */}
-          <div className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group relative text-[15px] md:text-base font-semibold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
+          <nav aria-label="主要導覽" className="hidden items-center gap-6 lg:flex">
+            {navLinks.map((link) => {
+              const active = isActivePath(pathname, link.href);
 
-                <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100" />
-              </Link>
-            ))}
-
-<LineConsultButton className="rounded-full bg-[#06C755] px-6 py-3 text-sm md:text-base font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(0,0,0,0.25)]">
-  LINE 免費諮詢
-</LineConsultButton>
-          </div>
-
-          {/* 手機漢堡 */}
-          <button
-            onClick={toggleMenu}
-            aria-label="開啟選單"
-            className="relative z-[60] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-white shadow-sm md:hidden"
-          >
-            <span className="h-0.5 w-5 rounded-full bg-foreground" />
-            <span className="h-0.5 w-5 rounded-full bg-foreground" />
-            <span className="h-0.5 w-5 rounded-full bg-foreground" />
-          </button>
-        </div>
-      </nav>
-
-      {/* 手機選單 */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-[100] flex flex-col bg-background px-7 pt-24 md:hidden animate-in fade-in duration-300">
-          <button
-            onClick={toggleMenu}
-            aria-label="關閉選單"
-            className="absolute right-6 top-6 z-[110] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white shadow-sm"
-          >
-            <div className="relative h-6 w-6">
-              <span className="absolute left-0 top-1/2 h-0.5 w-full rotate-45 rounded-full bg-foreground" />
-
-              <span className="absolute left-0 top-1/2 h-0.5 w-full -rotate-45 rounded-full bg-foreground" />
-            </div>
-          </button>
-
-          <div className="mb-8 shrink-0">
-            <p className="text-sm tracking-[0.24em] text-muted-foreground">
-              RENTAL MANAGEMENT
-            </p>
-
-            <p className="mt-2 text-2xl font-black text-foreground">
-              台灣社會住宅包租代管資訊站
-            </p>
-          </div>
-
-          {/* 可滾動區塊：min-h-0 讓 flex 子項目能正確收縮，overflow-y-auto 才滑得動 */}
-          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pb-8">
-            <div className="flex w-full flex-col">
-              {navLinks.map((link) => (
+              return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={closeMobileMenu}
-                  className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary"
+                  aria-current={active ? "page" : undefined}
+                  className={`text-sm font-semibold transition-colors ${
+                    active
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {link.label}
-
-                  <span className="text-primary">→</span>
                 </Link>
-              ))}
+              );
+            })}
 
-              {/* 手機版聯絡方式 */}
-              <LineConsultButton className="flex items-center justify-between border-b border-border py-5 text-xl font-semibold text-foreground transition-colors active:text-primary">
-                <>
-                  聯絡方式
-                  <span className="text-primary">→</span>
-                </>
-              </LineConsultButton>
-            </div>
-
-            {/* 手機版 CTA */}
-            <LineConsultButton className="mt-8 flex h-14 shrink-0 items-center justify-center rounded-full bg-[#06C755] text-base font-semibold text-primary-foreground shadow-[0_14px_36px_rgba(31,78,121,0.28)]">
-              加入 LINE 免費諮詢
+            <LineConsultButton className="rounded-full bg-[#06C755] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+              LINE 免費諮詢
             </LineConsultButton>
+          </nav>
 
-            <div className="mt-8 text-sm leading-7 text-muted-foreground">
-              <p>房東安心出租｜租客穩定入住｜專業租務管理</p>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-label={mobileOpen ? "關閉選單" : "開啟選單"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
+          >
+            <span className="sr-only">
+              {mobileOpen ? "關閉選單" : "開啟選單"}
+            </span>
 
-              <p>社會住宅包租代管與租屋補助諮詢服務</p>
+            <span className="relative block h-5 w-6" aria-hidden="true">
+              <span
+                className={`absolute left-0 top-0.5 h-0.5 w-6 bg-current transition-transform ${
+                  mobileOpen ? "translate-y-2 rotate-45" : ""
+                }`}
+              />
+
+              <span
+                className={`absolute left-0 top-2.5 h-0.5 w-6 bg-current transition-opacity ${
+                  mobileOpen ? "opacity-0" : ""
+                }`}
+              />
+
+              <span
+                className={`absolute left-0 top-[18px] h-0.5 w-6 bg-current transition-transform ${
+                  mobileOpen ? "-translate-y-2 -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
+      </header>
+
+      {mobileOpen && (
+        <div
+          id="mobile-navigation"
+          className="fixed inset-0 z-40 bg-background pt-20 lg:hidden"
+        >
+          <nav
+            aria-label="手機版主要導覽"
+            className="flex h-full flex-col overflow-y-auto px-6 pb-8"
+          >
+            <div className="divide-y divide-border/70 border-t border-border/70">
+              {navLinks.map((link) => {
+                const active = isActivePath(pathname, link.href);
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center justify-between py-5 text-lg font-bold transition-colors ${
+                      active
+                        ? "text-primary"
+                        : "text-foreground active:text-primary"
+                    }`}
+                  >
+                    {link.label}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                );
+              })}
             </div>
-          </div>
+
+            <div className="mt-auto border-t border-border/70 pt-6">
+              <LineConsultButton className="flex w-full items-center justify-center rounded-full bg-[#06C755] px-6 py-4 text-base font-semibold text-white">
+                加入 LINE 免費諮詢
+              </LineConsultButton>
+
+              <p className="mt-5 text-center text-xs leading-6 text-muted-foreground">
+                本站由凌群不動產建立並經營，非政府官方網站。
+              </p>
+            </div>
+          </nav>
         </div>
       )}
     </>
-  )
+  );
 }
