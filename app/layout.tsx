@@ -200,7 +200,7 @@ export default function RootLayout({
 
         <Script
           id="umami-analytics"
-          src="https://cloud.umami.is/script.js"
+          src="https://ana.line88.tw/script.js"
           data-website-id="5140bba7-58f5-407e-8d2c-686ea618dece"
           strategy="afterInteractive"
         />
