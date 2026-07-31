@@ -12,6 +12,7 @@ const navLinks = [
   { label: "公益出租人", href: "/public-landlord" },
   { label: "房東節稅", href: "/landlord-tax" },
   { label: "包租代管", href: "/property-management" },
+  { label: "我要檢舉", href: "/report", danger: true },
   { label: "最新文章", href: "/blog" },
 ];
 
@@ -94,6 +95,8 @@ export function Navbar() {
                   className={`whitespace-nowrap text-lg font-semibold transition-colors 2xl:text-xl ${
                     active
                       ? "text-primary"
+                      : link.danger
+                      ? "text-red-600 hover:text-red-700"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -164,6 +167,8 @@ export function Navbar() {
                     className={`flex items-center justify-between py-5 text-lg font-bold transition-colors ${
                       active
                         ? "text-primary"
+                        : link.danger
+                        ? "text-red-600 active:text-red-700"
                         : "text-foreground active:text-primary"
                     }`}
                   >
