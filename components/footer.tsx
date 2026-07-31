@@ -28,9 +28,6 @@ export function Footer() {
                   台灣社會住宅包租代管資訊站
                 </span>
 
-                <span className="mt-1 block text-xs text-muted-foreground">
-                  凌群不動產建立並經營
-                </span>
               </span>
             </Link>
 
@@ -80,8 +77,6 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border/70 pt-6">
           <p className="text-xs leading-6 text-muted-foreground">
-            本站由凌群不動產建立並經營，屬民間資訊網站，並非政府官方網站。
-            網站內容僅供一般資訊參考，不構成法律、稅務、不動產、租賃或補助申請建議；
             社會住宅包租代管、租屋補助、公益出租人及相關政策資格，
             請以中央與地方政府最新公告為準。
           </p>
