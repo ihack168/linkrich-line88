@@ -109,9 +109,6 @@ export function LatestPostsSection() {
     <section className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-10 flex flex-col gap-4 text-center md:flex-row md:items-end md:justify-between md:text-left">
         <div>
-          <p className="text-sm font-semibold tracking-[0.2em] text-primary">
-            LATEST ARTICLES
-          </p>
 
           <h2 className="mt-3 text-2xl font-black text-foreground md:text-4xl">
             最新文章
