@@ -60,15 +60,15 @@ export function Navbar() {
           <Link
             href="/"
             aria-label="台灣社會住宅包租代管資訊站首頁"
-            className="flex min-w-0 items-center gap-3"
+            className="flex min-w-0 items-center gap-4"
           >
-            <img
-              src="/images/logo.png"
-              alt=""
-              width={48}
-              height={48}
-              className="h-10 w-10 shrink-0 rounded-full object-cover lg:h-12 lg:w-12"
-            />
+<img
+  src="/images/logo.png"
+  alt="台灣社會住宅包租代管資訊站 Logo"
+  width={64}
+  height={64}
+  className="h-12 w-12 shrink-0 rounded-full object-cover lg:h-16 lg:w-16"
+/>
 
             <span className="min-w-0">
               <span className="block truncate text-base font-black tracking-tight text-foreground md:text-lg lg:text-2xl">
