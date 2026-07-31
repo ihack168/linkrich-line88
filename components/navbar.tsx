@@ -56,22 +56,22 @@ export function Navbar() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur">
-        <div className="mx-auto flex h-20 max-w-[1800px] items-center justify-between px-5 md:px-8 2xl:h-28 2xl:px-10">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8 lg:h-24">
           <Link
             href="/"
             aria-label="台灣社會住宅包租代管資訊站首頁"
-            className="flex min-w-0 items-center gap-3 2xl:gap-4"
+            className="flex min-w-0 items-center gap-3"
           >
             <img
               src="/images/logo.png"
               alt=""
-              width={56}
-              height={56}
-              className="h-10 w-10 shrink-0 rounded-full object-cover 2xl:h-14 2xl:w-14"
+              width={48}
+              height={48}
+              className="h-10 w-10 shrink-0 rounded-full object-cover lg:h-12 lg:w-12"
             />
 
             <span className="min-w-0">
-              <span className="block truncate text-base font-black tracking-tight text-foreground md:text-lg 2xl:text-4xl">
+              <span className="block truncate text-base font-black tracking-tight text-foreground md:text-lg lg:text-2xl">
                 台灣社會住宅包租代管資訊站
               </span>
             </span>
@@ -79,7 +79,7 @@ export function Navbar() {
 
           <nav
             aria-label="主要導覽"
-            className="hidden items-center gap-4 2xl:flex"
+            className="hidden items-center gap-5 lg:flex"
           >
             {navLinks.map((link) => {
               const active = isActivePath(pathname, link.href);
@@ -89,7 +89,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`whitespace-nowrap text-3xl font-semibold transition-colors ${
+                  className={`whitespace-nowrap text-xl font-semibold transition-colors ${
                     active
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
@@ -100,7 +100,7 @@ export function Navbar() {
               );
             })}
 
-            <LineConsultButton className="whitespace-nowrap rounded-full bg-[#06C755] px-7 py-3 text-3xl font-semibold text-white transition-opacity hover:opacity-90">
+            <LineConsultButton className="whitespace-nowrap rounded-full bg-[#06C755] px-6 py-2.5 text-xl font-semibold text-white transition-opacity hover:opacity-90">
               LINE 免費諮詢
             </LineConsultButton>
           </nav>
@@ -111,7 +111,7 @@ export function Navbar() {
             aria-label={mobileOpen ? "關閉選單" : "開啟選單"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground 2xl:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
           >
             <span className="sr-only">
               {mobileOpen ? "關閉選單" : "開啟選單"}
@@ -143,7 +143,7 @@ export function Navbar() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="fixed inset-0 z-40 bg-background pt-20 2xl:hidden"
+          className="fixed inset-0 z-40 bg-background pt-20 lg:hidden"
         >
           <nav
             aria-label="手機版主要導覽"
