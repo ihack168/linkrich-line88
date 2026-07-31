@@ -18,7 +18,6 @@ export default function LandlordTaxPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
 
       <main className="pt-28 md:pt-36">
         {/* Hero */}
@@ -146,7 +145,6 @@ export default function LandlordTaxPage() {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 }

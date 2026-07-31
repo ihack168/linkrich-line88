@@ -18,7 +18,6 @@ export default function PublicLandlordPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
 
       <main className="pt-28 md:pt-36">
         {/* Hero */}
@@ -128,7 +127,6 @@ export default function PublicLandlordPage() {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 }

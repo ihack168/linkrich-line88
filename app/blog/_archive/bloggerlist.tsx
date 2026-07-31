@@ -56,7 +56,6 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <Navbar />
       <main className="container mx-auto px-6 pt-32 pb-20">
         <h1 className="text-4xl font-black mb-12 italic text-[#ff8800]">
           最新文章
@@ -171,7 +170,7 @@ export default function BlogPage() {
           </>
         )}
       </main>
-      <Footer />
+
     </div>
   );
 }

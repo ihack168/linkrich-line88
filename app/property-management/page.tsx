@@ -6,7 +6,6 @@ import { LineConsultButton } from "@/components/line-consult-button";
 export default function PropertyManagementPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
 
       <main className="pt-28 md:pt-36">
         {/* Hero */}
@@ -134,7 +133,6 @@ export default function PropertyManagementPage() {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 }
