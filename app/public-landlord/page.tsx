@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 import { LineConsultButton } from "@/components/line-consult-button";
 
 export default function PublicLandlordPage() {

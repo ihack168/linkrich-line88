@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { Footer } from "@/components/footer";
 import { PostThumbnail } from "@/components/post-thumbnail";
 import { client } from "@/lib/sanity";
 

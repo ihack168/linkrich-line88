@@ -1,7 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 
 // 定義文章類型，增加程式碼可讀性
 interface Post {
