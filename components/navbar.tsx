@@ -56,22 +56,24 @@ export function Navbar() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8 lg:h-24">
+        <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-4 sm:px-6 xl:h-24 xl:px-8">
           <Link
             href="/"
             aria-label="台灣社會住宅包租代管資訊站首頁"
-            className="flex min-w-0 items-center gap-4"
+            className="flex min-w-0 items-center gap-2 sm:gap-3 xl:gap-4"
           >
-<img
-  src="/images/logo.png"
-  alt="台灣社會住宅包租代管資訊站 Logo"
-  width={64}
-  height={64}
-  className="h-12 w-12 shrink-0 rounded-full object-cover lg:h-16 lg:w-16"
-/>
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden sm:h-16 sm:w-16 xl:h-[72px] xl:w-[72px]">
+              <img
+                src="/images/logo.png"
+                alt="台灣社會住宅包租代管資訊站 Logo"
+                width={72}
+                height={72}
+                className="h-full w-full scale-[1.65] object-contain"
+              />
+            </span>
 
             <span className="min-w-0">
-              <span className="block truncate text-base font-black tracking-tight text-foreground md:text-lg lg:text-2xl">
+              <span className="block whitespace-nowrap text-[17px] font-black leading-tight tracking-tight text-foreground sm:text-xl xl:text-2xl">
                 台灣社會住宅包租代管資訊站
               </span>
             </span>
@@ -79,7 +81,7 @@ export function Navbar() {
 
           <nav
             aria-label="主要導覽"
-            className="hidden items-center gap-5 lg:flex"
+            className="hidden items-center gap-4 xl:flex 2xl:gap-6"
           >
             {navLinks.map((link) => {
               const active = isActivePath(pathname, link.href);
@@ -89,7 +91,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`whitespace-nowrap text-xl font-semibold transition-colors ${
+                  className={`whitespace-nowrap text-lg font-semibold transition-colors 2xl:text-xl ${
                     active
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
@@ -100,7 +102,7 @@ export function Navbar() {
               );
             })}
 
-            <LineConsultButton className="whitespace-nowrap rounded-full bg-[#06C755] px-6 py-2.5 text-xl font-semibold text-white transition-opacity hover:opacity-90">
+            <LineConsultButton className="whitespace-nowrap rounded-full bg-[#06C755] px-5 py-2.5 text-lg font-semibold text-white transition-opacity hover:opacity-90 2xl:px-6 2xl:text-xl">
               LINE 免費諮詢
             </LineConsultButton>
           </nav>
@@ -111,7 +113,7 @@ export function Navbar() {
             aria-label={mobileOpen ? "關閉選單" : "開啟選單"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
+            className="ml-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground xl:hidden"
           >
             <span className="sr-only">
               {mobileOpen ? "關閉選單" : "開啟選單"}
@@ -143,7 +145,7 @@ export function Navbar() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="fixed inset-0 z-40 bg-background pt-20 lg:hidden"
+          className="fixed inset-0 z-40 bg-background pt-20 xl:hidden"
         >
           <nav
             aria-label="手機版主要導覽"
