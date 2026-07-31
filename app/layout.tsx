@@ -206,7 +206,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        <div className="flex-1">{children}</div>
+        <main className="flex-1 pt-20 xl:pt-24">
+  {children}
+</main>
 
         <Footer />
       </body>
