@@ -165,15 +165,6 @@ export function Footer() {
               ))}
             </ul>
 
-            <div className="mt-7 rounded-2xl border border-border/70 bg-white/70 p-4">
-              <p className="text-sm font-black text-foreground">
-                資訊使用提醒
-              </p>
-
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">
-                本站為民間資訊網站，非政府機關或政府官方網站。
-              </p>
-            </div>
           </nav>
         </div>
 
