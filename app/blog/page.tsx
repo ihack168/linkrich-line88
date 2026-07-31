@@ -605,7 +605,6 @@ export default async function BlogPage({
           )}
 
           <aside className="mt-16 border-t border-border/70 pt-6 text-sm leading-7 text-muted-foreground">
-            本站為凌群不動產建立並經營的民間資訊網站，非政府官方網站。
             政策資格、補助金額與申請辦法，請以中央及地方政府最新公告為準。
           </aside>
         </div>
