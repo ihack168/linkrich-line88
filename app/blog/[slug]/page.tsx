@@ -727,13 +727,7 @@ export default async function PostPage({
             )}
           </article>
 
-          <aside
-            aria-label="網站資訊聲明"
-            className="mt-12 border-t border-border pt-5 text-sm leading-7 text-muted-foreground"
-          >
-            本站由凌群不動產建立並經營，屬民間資訊網站，並非政府官方網站。
-            社會住宅包租代管、租屋補助、公益出租人與相關政策資格，請以中央及地方政府最新公告為準。
-          </aside>
+
 
           <ShareBar />
 
